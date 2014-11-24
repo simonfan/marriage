@@ -1,0 +1,6548 @@
+
+// Button Mixins
+// --------------------------------------------------
+
+@mixin button-style($bg-color, $border-color, $active-bg-color, $active-border-color, $color) {
+  border-color: $border-color;
+  background-color: $bg-color;
+  color: $color;
+
+  // Give desktop users something to play with
+  &:hover {
+    color: $color;
+    text-decoration: none;
+  }
+  &.active,
+  &.activated {
+    border-color: $active-border-color;
+    background-color: $active-bg-color;
+    box-shadow: inset 0px 1px 3px rgba(0,0,0,0.15);
+  }
+}
+
+@mixin button-clear($color, $font-size:"") {
+  &.button-clear {
+    border-color: transparent;
+    background: none;
+    box-shadow: none;
+    color: $color;
+
+    @if $font-size != "" {
+      font-size: $font-size;
+    }
+  }
+  &.button-icon {
+    border-color: transparent;
+    background: none;
+  }
+}
+
+@mixin button-outline($color, $text-color:"") {
+  &.button-outline {
+    border-color: $color;
+    background: transparent;
+    @if $text-color == "" {
+      $text-color: $color;
+    }
+    color: $text-color;
+    &.active,
+    &.activated {
+      background-color: $color;
+      box-shadow: none;
+      color: #fff;
+    }
+  }
+}
+
+
+// Bar Mixins
+// --------------------------------------------------
+
+@mixin bar-style($bg-color, $border-color, $color) {
+  border-color: $border-color;
+  background-color: $bg-color;
+  background-image: linear-gradient(0deg, $border-color, $border-color 50%, transparent 50%);
+  color: $color;
+
+  .title {
+    color: $color;
+  }
+}
+
+
+// Tab Mixins
+// --------------------------------------------------
+
+@mixin tab-style($bg-color, $border-color, $color) {
+  border-color: $border-color;
+  background-color: $bg-color;
+  background-image: linear-gradient(0deg, $border-color, $border-color 50%, transparent 50%);
+  color: $color;
+}
+
+@mixin tab-badge-style($bg-color, $color) {
+  .tab-item .badge {
+    background-color: $bg-color;
+    color: $color;
+  }
+}
+
+
+// Item Mixins
+// --------------------------------------------------
+
+@mixin item-style($bg-color, $border-color, $color) {
+  border-color: $border-color;
+  background-color: $bg-color;
+  color: $color;
+}
+
+@mixin item-active-style($active-bg-color, $active-border-color) {
+  border-color: $active-border-color;
+  background-color: $active-bg-color;
+}
+
+
+// Badge Mixins
+// --------------------------------------------------
+
+@mixin badge-style($bg-color, $color) {
+  background-color: $bg-color;
+  color: $color;
+}
+
+
+// Range Mixins
+// --------------------------------------------------
+
+@mixin range-style($track-bg-color) {
+  &::-webkit-slider-thumb:before {
+    background: $track-bg-color;
+  }
+}
+
+
+// Checkbox Mixins
+// --------------------------------------------------
+
+@mixin checkbox-style($off-border-color, $on-bg-color) {
+  & input:before,
+  & .checkbox-icon:before {
+    border-color: $off-border-color;
+  }
+
+  // what the background looks like when its checked
+  & input:checked:before,
+  & input:checked + .checkbox-icon:before {
+    background: $on-bg-color;
+  }
+}
+
+
+// Toggle Mixins
+// --------------------------------------------------
+
+@mixin toggle-style($on-border-color, $on-bg-color) {
+  // the track when the toggle is "on"
+  & input:checked + .track {
+    border-color: $on-border-color;
+    background-color: $on-bg-color;
+  }
+}
+
+
+// Clearfix
+// --------------------------------------------------
+
+@mixin clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+
+// Placeholder text
+// --------------------------------------------------
+
+@mixin placeholder($color: $input-color-placeholder, $text-indent: 0) {
+  &::-moz-placeholder { /* Firefox 19+ */
+    color: $color;
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+  &::-webkit-input-placeholder {
+    color: $color;
+    // Safari placeholder margin issue
+    text-indent: $text-indent;
+  }
+}
+
+
+// Text Mixins
+// --------------------------------------------------
+
+@mixin text-size-adjust($value: none) {
+  -webkit-text-size-adjust: $value;
+     -moz-text-size-adjust: $value;
+          text-size-adjust: $value;
+}
+@mixin tap-highlight-transparent() {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent; // For some Androids
+}
+@mixin touch-callout($value: none) {
+  -webkit-touch-callout: $value;
+}
+
+
+// Font Mixins
+// --------------------------------------------------
+
+@mixin font-family-serif() {
+  font-family: $serif-font-family;
+}
+@mixin font-family-sans-serif() {
+  font-family: $sans-font-family;
+}
+@mixin font-family-monospace() {
+  font-family: $mono-font-family;
+}
+@mixin font-shorthand($size: $base-font-size, $weight: normal, $line-height: $base-line-height) {
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $line-height;
+}
+@mixin font-serif($size: $base-font-size, $weight: normal, $line-height: $base-line-height) {
+  @include font-family-serif();
+  @include font-shorthand($size, $weight, $line-height);
+}
+@mixin font-sans-serif($size: $base-font-size, $weight: normal, $line-height: $base-line-height) {
+  @include font-family-sans-serif();
+  @include font-shorthand($size, $weight, $line-height);
+}
+@mixin font-monospace($size: $base-font-size, $weight: normal, $line-height: $base-line-height) {
+  @include font-family-monospace();
+  @include font-shorthand($size, $weight, $line-height);
+}
+@mixin font-smoothing($font-smoothing) {
+  -webkit-font-smoothing: $font-smoothing;
+          font-smoothing: $font-smoothing;
+}
+
+
+// Appearance
+// --------------------------------------------------
+
+@mixin appearance($val) {
+  -webkit-appearance: $val;
+     -moz-appearance: $val;
+          appearance: $val;
+}
+
+
+// Border Radius Mixins
+// --------------------------------------------------
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+          border-radius: $radius;
+}
+
+// Single Corner Border Radius
+@mixin border-top-left-radius($radius) {
+  -webkit-border-top-left-radius: $radius;
+      -moz-border-radius-topleft: $radius;
+          border-top-left-radius: $radius;
+}
+@mixin border-top-right-radius($radius) {
+  -webkit-border-top-right-radius: $radius;
+      -moz-border-radius-topright: $radius;
+          border-top-right-radius: $radius;
+}
+@mixin border-bottom-right-radius($radius) {
+  -webkit-border-bottom-right-radius: $radius;
+      -moz-border-radius-bottomright: $radius;
+          border-bottom-right-radius: $radius;
+}
+@mixin border-bottom-left-radius($radius) {
+  -webkit-border-bottom-left-radius: $radius;
+      -moz-border-radius-bottomleft: $radius;
+          border-bottom-left-radius: $radius;
+}
+
+// Single Side Border Radius
+@mixin border-top-radius($radius) {
+  @include border-top-right-radius($radius);
+  @include border-top-left-radius($radius);
+}
+@mixin border-right-radius($radius) {
+  @include border-top-right-radius($radius);
+  @include border-bottom-right-radius($radius);
+}
+@mixin border-bottom-radius($radius) {
+  @include border-bottom-right-radius($radius);
+  @include border-bottom-left-radius($radius);
+}
+@mixin border-left-radius($radius) {
+  @include border-top-left-radius($radius);
+  @include border-bottom-left-radius($radius);
+}
+
+
+// Box shadows
+// --------------------------------------------------
+
+@mixin box-shadow($shadow...) {
+  -webkit-box-shadow: $shadow;
+     -moz-box-shadow: $shadow;
+          box-shadow: $shadow;
+}
+
+
+// Transition Mixins
+// --------------------------------------------------
+
+@mixin transition($transition...) {
+  -webkit-transition: $transition;
+     -moz-transition: $transition;
+          transition: $transition;
+}
+@mixin transition-delay($transition-delay) {
+  -webkit-transition-delay: $transition-delay;
+     -moz-transition-delay: $transition-delay;
+          transition-delay: $transition-delay;
+}
+@mixin transition-duration($transition-duration) {
+  -webkit-transition-duration: $transition-duration;
+     -moz-transition-duration: $transition-duration;
+          transition-duration: $transition-duration;
+}
+@mixin transition-timing-function($transition-timing) {
+   -webkit-transition-timing-function: $transition-timing;
+      -moz-transition-timing-function: $transition-timing;
+           transition-timing-function: $transition-timing;
+ }
+ @mixin transition-property($property) {
+  -webkit-transition-property: $property;
+     -moz-transition-property: $property;
+          transition-property: $property;
+}
+@mixin transition-transform($properties...) {
+  // special case cuz of transform vendor prefixes
+  -webkit-transition: -webkit-transform $properties;
+     -moz-transition: -moz-transform $properties;
+          transition: transform $properties;
+}
+
+
+// Animation Mixins
+// --------------------------------------------------
+
+@mixin animation($animation) {
+ -webkit-animation: $animation;
+    -moz-animation: $animation;
+         animation: $animation;
+}
+@mixin animation-duration($duration) {
+ -webkit-animation-duration: $duration;
+    -moz-animation-duration: $duration;
+         animation-duration: $duration;
+}
+@mixin animation-direction($direction) {
+ -webkit-animation-direction: $direction;
+    -moz-animation-direction: $direction;
+         animation-direction: $direction;
+}
+@mixin animation-timing-function($animation-timing) {
+ -webkit-animation-timing-function: $animation-timing;
+    -moz-animation-timing-function: $animation-timing;
+         animation-timing-function: $animation-timing;
+}
+@mixin animation-fill-mode($fill-mode) {
+ -webkit-animation-fill-mode: $fill-mode;
+    -moz-animation-fill-mode: $fill-mode;
+         animation-fill-mode: $fill-mode;
+}
+@mixin animation-name($name) {
+ -webkit-animation-name: $name;
+    -moz-animation-name: $name;
+         animation-name: $name;
+}
+@mixin animation-iteration-count($count) {
+ -webkit-animation-iteration-count: $count;
+    -moz-animation-iteration-count: $count;
+         animation-iteration-count: $count;
+}
+
+
+// Transformation Mixins
+// --------------------------------------------------
+
+@mixin rotate($degrees) {
+  @include transform( rotate($degrees) );
+}
+@mixin scale($ratio) {
+  @include transform( scale($ratio) );
+}
+@mixin translate($x, $y) {
+  @include transform( translate($x, $y) );
+}
+@mixin skew($x, $y) {
+  @include transform( skew($x, $y) );
+  -webkit-backface-visibility: hidden;
+}
+@mixin translate3d($x, $y, $z) {
+  @include transform( translate3d($x, $y, $z) );
+}
+@mixin translateZ($z) {
+  @include transform( translateZ($z) );
+}
+@mixin transform($val) {
+  -webkit-transform: $val;
+     -moz-transform: $val;
+          transform: $val;
+}
+
+@mixin transform-origin($left, $top) {
+  -webkit-transform-origin: $left $top;
+     -moz-transform-origin: $left $top;
+          transform-origin: $left $top;
+}
+
+
+// Backface visibility
+// --------------------------------------------------
+// Prevent browsers from flickering when using CSS 3D transforms.
+// Default value is `visible`, but can be changed to `hidden
+
+@mixin backface-visibility($visibility){
+  -webkit-backface-visibility: $visibility;
+          backface-visibility: $visibility;
+}
+
+
+// Background clipping
+// --------------------------------------------------
+
+@mixin background-clip($clip) {
+  -webkit-background-clip: $clip;
+     -moz-background-clip: $clip;
+          background-clip: $clip;
+}
+
+
+// Background sizing
+// --------------------------------------------------
+
+@mixin background-size($size) {
+  -webkit-background-size: $size;
+     -moz-background-size: $size;
+          background-size: $size;
+}
+
+
+// Box sizing
+// --------------------------------------------------
+
+@mixin box-sizing($boxmodel) {
+  -webkit-box-sizing: $boxmodel;
+     -moz-box-sizing: $boxmodel;
+          box-sizing: $boxmodel;
+}
+
+
+// User select
+// --------------------------------------------------
+
+@mixin user-select($select) {
+  -webkit-user-select: $select;
+     -moz-user-select: $select;
+      -ms-user-select: $select;
+          user-select: $select;
+}
+
+
+// Content Columns
+// --------------------------------------------------
+
+@mixin content-columns($columnCount, $columnGap: $grid-gutter-width) {
+  -webkit-column-count: $columnCount;
+     -moz-column-count: $columnCount;
+          column-count: $columnCount;
+  -webkit-column-gap: $columnGap;
+     -moz-column-gap: $columnGap;
+          column-gap: $columnGap;
+}
+
+
+// Flexbox Mixins
+// --------------------------------------------------
+// http://philipwalton.github.io/solved-by-flexbox/
+// https://github.com/philipwalton/solved-by-flexbox
+
+@mixin display-flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin dislay-inline-flex {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -moz-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+@mixin flex-direction($value: row) {
+  @if $value == row-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: horizontal;
+  } @else if $value == column {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+  } @else if $value == column-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: vertical;
+  } @else {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+  }
+  -webkit-flex-direction: $value;
+  -moz-flex-direction: $value;
+  -ms-flex-direction: $value;
+  flex-direction: $value;
+}
+
+@mixin flex-wrap($value: nowrap) {
+  // No Webkit Box fallback.
+  -webkit-flex-wrap: $value;
+  -moz-flex-wrap: $value;
+  @if $value == nowrap {
+      -ms-flex-wrap: none;
+  } @else {
+      -ms-flex-wrap: $value;
+  }
+  flex-wrap: $value;
+}
+
+@mixin flex($fg: 1, $fs: null, $fb: null) {
+  -webkit-box-flex: $fg;
+  -webkit-flex: $fg $fs $fb;
+  -moz-box-flex: $fg;
+  -moz-flex: $fg $fs $fb;
+  -ms-flex: $fg $fs $fb;
+  flex: $fg $fs $fb;
+}
+
+@mixin flex-flow($values: (row nowrap)) {
+  // No Webkit Box fallback.
+  -webkit-flex-flow: $values;
+  -moz-flex-flow: $values;
+  -ms-flex-flow: $values;
+  flex-flow: $values;
+}
+
+@mixin align-items($value: stretch) {
+  @if $value == flex-start {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+  } @else if $value == flex-end {
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+  } @else {
+    -webkit-box-align: $value;
+    -ms-flex-align: $value;
+  }
+  -webkit-align-items: $value;
+  -moz-align-items: $value;
+  align-items: $value;
+}
+
+@mixin align-self($value: auto) {
+  -webkit-align-self: $value;
+  -moz-align-self: $value;
+  @if $value == flex-start {
+    -ms-flex-item-align: start;
+  } @else if $value == flex-end {
+    -ms-flex-item-align: end;
+  } @else {
+    -ms-flex-item-align: $value;
+  }
+  align-self: $value;
+}
+
+@mixin align-content($value: stretch) {
+  -webkit-align-content: $value;
+  -moz-align-content: $value;
+  @if $value == flex-start {
+    -ms-flex-line-pack: start;
+  } @else if $value == flex-end {
+    -ms-flex-line-pack: end;
+  } @else {
+    -ms-flex-line-pack: $value;
+  }
+  align-content: $value;
+}
+
+@mixin justify-content($value: stretch) {
+  @if $value == flex-start {
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+  } @else if $value == flex-end {
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+  } @else if $value == space-between {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+  } @else {
+    -webkit-box-pack: $value;
+    -ms-flex-pack: $value;
+  }
+  -webkit-justify-content: $value;
+  -moz-justify-content: $value;
+  justify-content: $value;
+}
+
+@mixin responsive-grid-break($selector, $max-width) {
+  @media (max-width: $max-width) {
+    #{$selector} {
+      -webkit-box-direction: normal;
+      -moz-box-direction: normal;
+      -webkit-box-orient: vertical;
+      -moz-box-orient: vertical;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+
+      .col, .col-10, .col-20, .col-25, .col-33, .col-34, .col-50, .col-66, .col-67, .col-75, .col-80, .col-90 {
+        @include flex(1);
+        margin-bottom: ($grid-padding-width * 3) / 2;
+        margin-left: 0;
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+/**
+ * Resets
+ * --------------------------------------------------
+ * Adapted from normalize.css and some reset.css. We don't care even one
+ * bit about old IE, so we don't need any hacks for that in here.
+ *
+ * There are probably other things we could remove here, as well.
+ *
+ * normalize.css v2.1.2 | MIT License | git.io/normalize
+
+ * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+ * http://cssreset.com
+ */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, i, u, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, fieldset,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  font: inherit;
+  font-size: 100%;
+}
+
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+/**
+ * Hide the `template` element in IE, Safari, and Firefox < 22.
+ */
+
+[hidden],
+template {
+  display: none;
+}
+
+script {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *  user zoom.
+ */
+
+html {
+  @include user-select(none);
+  font-family: sans-serif; /* 1 */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/**
+ * Remove default margin.
+ */
+
+body {
+  margin: 0;
+  line-height: 1;
+}
+
+
+/**
+ * Remove default outlines.
+ */
+a,
+button,
+:focus,
+a:focus,
+button:focus,
+a:active,
+a:hover {
+  outline: 0;
+}
+
+/* *
+ * Remove tap highlight color
+ */
+
+a {
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+
+  &[href]:hover {
+    cursor: pointer;
+  }
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari 5, and Chrome.
+ */
+
+b,
+strong {
+  font-weight: bold;
+}
+
+/**
+ * Address styling not present in Safari 5 and Chrome.
+ */
+
+dfn {
+  font-style: italic;
+}
+
+/**
+ * Address differences between Firefox and other browsers.
+ */
+
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+
+/**
+ * Correct font family set oddly in Safari 5 and Chrome.
+ */
+
+code,
+kbd,
+pre,
+samp {
+  font-size: 1em;
+  font-family: monospace, serif;
+}
+
+/**
+ * Improve readability of pre-formatted text in all browsers.
+ */
+
+pre {
+  white-space: pre-wrap;
+}
+
+/**
+ * Set consistent quote types.
+ */
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+
+sub,
+sup {
+  position: relative;
+  vertical-align: baseline;
+  font-size: 75%;
+  line-height: 0;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+/**
+ * Define consistent border, margin, and padding.
+ */
+
+fieldset {
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+  border: 1px solid #c0c0c0;
+}
+
+/**
+ * 1. Correct `color` not being inherited in IE 8/9.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+
+legend {
+  padding: 0; /* 2 */
+  border: 0; /* 1 */
+}
+
+/**
+ * 1. Correct font family not being inherited in all browsers.
+ * 2. Correct font size not being inherited in all browsers.
+ * 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome.
+ * 4. Remove any default :focus styles
+ * 5. Make sure webkit font smoothing is being inherited
+ * 6. Remove default gradient in Android Firefox / FirefoxOS
+ */
+
+button,
+input,
+select,
+textarea {
+  margin: 0; /* 3 */
+  font-size: 100%; /* 2 */
+  font-family: inherit; /* 1 */
+  outline-offset: 0; /* 4 */
+  outline-style: none; /* 4 */
+  outline-width: 0; /* 4 */
+  -webkit-font-smoothing: inherit; /* 5 */
+  background-image: none; /* 6 */
+}
+
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `importnt` in
+ * the UA stylesheet.
+ */
+
+button,
+input {
+  line-height: normal;
+}
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+.
+ * Correct `select` style inheritance in Firefox 4+ and Opera.
+ */
+
+button,
+select {
+  text-transform: none;
+}
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *  and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *  `input` and others.
+ */
+
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer; /* 3 */
+  -webkit-appearance: button; /* 2 */
+}
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
+ *  (include `-moz` to future-proof).
+ */
+
+input[type="search"] {
+  -webkit-box-sizing: content-box; /* 2 */
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-appearance: textfield; /* 1 */
+}
+
+/**
+ * Remove inner padding and search cancel button in Safari 5 and Chrome
+ * on OS X.
+ */
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/**
+ * 1. Remove default vertical scrollbar in IE 8/9.
+ * 2. Improve readability and alignment in all browsers.
+ */
+
+textarea {
+  overflow: auto; /* 1 */
+  vertical-align: top; /* 2 */
+}
+
+
+img {
+  -webkit-user-drag: none;
+}
+
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+
+/**
+ * Remove most spacing between table cells.
+ */
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+
+/**
+ * Scaffolding
+ * --------------------------------------------------
+ */
+
+*,
+*:before,
+*:after {
+  @include box-sizing(border-box);
+}
+
+html {
+  overflow: hidden;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+}
+
+body,
+.ionic-body {
+  @include touch-callout(none);
+  @include font-smoothing(antialiased);
+  @include text-size-adjust(none);
+  @include tap-highlight-transparent();
+  @include user-select(none);
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+
+  margin: 0;
+  padding: 0;
+
+  color: $base-color;
+  word-wrap: break-word;
+  font-size: $font-size-base;
+  font-family: $font-family-base;
+  line-height: $line-height-computed;
+  text-rendering: optimizeLegibility;
+  -webkit-backface-visibility: hidden;
+  -webkit-user-drag: none;
+}
+
+body.grade-b,
+body.grade-c {
+  // disable optimizeLegibility for low end devices
+  text-rendering: auto;
+}
+
+.content {
+  // used for content areas not using the content directive
+  position: relative;
+}
+
+.scroll-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+
+  // Hide the top border if any
+  margin-top: -1px;
+
+  // Prevents any distortion of lines
+  padding-top:1px;
+
+  width: auto;
+  height: auto;
+}
+
+.scroll-content-false,
+.menu .scroll-content.scroll-content-false{
+  z-index: $z-index-scroll-content-false;
+}
+
+.scroll-view {
+  position: relative;
+  display: block;
+  overflow: hidden;
+
+  // Hide the top border if any
+  margin-top: -1px;
+}
+
+/**
+ * Scroll is the scroll view component available for complex and custom
+ * scroll view functionality.
+ */
+.scroll {
+  @include user-select(none);
+  @include touch-callout(none);
+  @include text-size-adjust(none);
+  @include transform-origin(left, top);
+}
+
+// hide webkit scrollbars
+::-webkit-scrollbar {
+  display:none;
+}
+
+// Scroll bar styles
+.scroll-bar {
+  position: absolute;
+  z-index: $z-index-scroll-bar;
+}
+// hide the scroll-bar during animations
+.ng-animate .scroll-bar {
+  visibility: hidden;
+}
+.scroll-bar-h {
+  right: 2px;
+  bottom: 3px;
+  left: 2px;
+  height: 3px;
+
+  .scroll-bar-indicator {
+    height: 100%;
+  }
+}
+
+.scroll-bar-v {
+  top: 2px;
+  right: 3px;
+  bottom: 2px;
+  width: 3px;
+
+  .scroll-bar-indicator {
+    width: 100%;
+  }
+}
+.scroll-bar-indicator {
+  position: absolute;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.3);
+  opacity: 1;
+  @include transition(opacity .3s linear);
+
+  &.scroll-bar-fade-out {
+    opacity: 0;
+  }
+}
+.grade-b .scroll-bar-indicator,
+.grade-c .scroll-bar-indicator {
+  // disable rgba background and border radius for low end devices
+  border-radius: 0;
+  background: #aaa;
+
+  &.scroll-bar-fade-out {
+    @include transition(none);
+  }
+}
+
+@keyframes refresh-spin {
+  0% { transform: translate3d(0,0,0) rotate(0); }
+  100% { transform: translate3d(0,0,0) rotate(180deg); }
+}
+
+@-webkit-keyframes refresh-spin {
+  0% {-webkit-transform: translate3d(0,0,0) rotate(0); }
+  100% {-webkit-transform: translate3d(0,0,0) rotate(180deg); }
+}
+
+@keyframes refresh-spin-back {
+  0% { transform: translate3d(0,0,0) rotate(180deg); }
+  100% { transform: translate3d(0,0,0) rotate(0); }
+}
+
+@-webkit-keyframes refresh-spin-back {
+  0% {-webkit-transform: translate3d(0,0,0) rotate(180deg); }
+  100% {-webkit-transform: translate3d(0,0,0) rotate(0); }
+}
+
+// Scroll refresher (for pull to refresh)
+.scroll-refresher {
+  position: absolute;
+  top: -60px;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  margin: auto;
+  height: 60px;
+
+  .ionic-refresher-content {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    color: $scroll-refresh-icon-color;
+    text-align: center;
+
+    font-size: 30px;
+
+    .text-refreshing,
+    .text-pulling {
+      font-size: 16px;
+      line-height: 16px;
+    }
+    &.ionic-refresher-with-text {
+      bottom: 10px;
+    }
+  }
+
+  .icon-refreshing,
+  .icon-pulling {
+    width: 100%;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+  .icon-pulling {
+    @include animation-name(refresh-spin-back);
+    @include animation-duration(200ms);
+    @include animation-timing-function(linear);
+    @include animation-fill-mode(none);
+    -webkit-transform: translate3d(0,0,0) rotate(0deg);
+    transform: translate3d(0,0,0) rotate(0deg);
+  }
+  .icon-refreshing,
+  .text-refreshing {
+    display: none;
+  }
+  .icon-refreshing {
+    @include animation-duration(1.5s);
+  }
+
+  &.active {
+    .icon-pulling:not(.pulling-rotation-disabled) {
+      @include animation-name(refresh-spin);
+      -webkit-transform: translate3d(0,0,0) rotate(-180deg);
+      transform: translate3d(0,0,0) rotate(-180deg);
+    }
+    &.refreshing {
+      @include transition(transform .2s);
+      @include transition(-webkit-transform .2s);
+      -webkit-transform: scale(1,1);
+      transform: scale(1,1);
+      .icon-pulling,
+      .text-pulling {
+        display: none;
+      }
+      .icon-refreshing,
+      .text-refreshing {
+        display: block;
+      }
+      &.refreshing-tail{
+        -webkit-transform: scale(0,0);
+        transform: scale(0,0);
+      }
+    }
+  }
+}
+
+ion-infinite-scroll {
+  height: 60px;
+  width: 100%;
+  opacity: 0;
+  display: block;
+
+  @include transition(opacity 0.25s);
+  @include display-flex();
+  @include flex-direction(row);
+  @include justify-content(center);
+  @include align-items(center);
+
+  .icon {
+    color: #666666;
+    font-size: 30px;
+    color: $scroll-refresh-icon-color;
+  }
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+.overflow-scroll {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+
+  .scroll {
+    position: static;
+    height: 100%;
+    -webkit-transform: translate3d(0, 0, 0);   // fix iOS bug where relative children of scroller disapear while scrolling.  see: http://stackoverflow.com/questions/9807620/ipad-safari-scrolling-causes-html-elements-to-disappear-and-reappear-with-a-dela
+  }
+}
+
+
+// Pad top/bottom of content so it doesn't hide behind .bar-title and .bar-tab.
+// Note: For these to work, content must come after both bars in the markup
+/* If you change these, change platform.scss as well */
+.has-header {
+  top: $bar-height;
+}
+// Force no header
+.no-header {
+  top: 0;
+}
+
+.has-subheader {
+  top: $bar-height * 2;
+}
+.has-tabs-top {
+  top: $bar-height + $tabs-height;
+}
+.has-header.has-subheader.has-tabs-top {
+  top: 2 * $bar-height + $tabs-height;
+}
+
+.has-footer {
+  bottom: $bar-height;
+}
+.has-subfooter {
+  bottom: $bar-height * 2;
+}
+
+.has-tabs,
+.bar-footer.has-tabs {
+  bottom: $tabs-height;
+}
+
+.has-footer.has-tabs {
+  bottom: $tabs-height + $bar-height;
+}
+
+// A full screen section with a solid background
+.pane {
+  @include translate3d(0,0,0);
+  z-index: $z-index-pane;
+}
+.view {
+  z-index: $z-index-view;
+}
+.pane,
+.view {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $base-background-color;
+  overflow: hidden;
+}
+
+ion-nav-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+}
+
+
+/**
+ * Typography
+ * --------------------------------------------------
+ */
+
+
+// Body text
+// -------------------------
+
+p {
+  margin: 0 0 ($line-height-computed / 2);
+}
+
+
+// Emphasis & misc
+// -------------------------
+
+small   { font-size: 85%; }
+cite    { font-style: normal; }
+
+
+// Alignment
+// -------------------------
+
+.text-left           { text-align: left; }
+.text-right          { text-align: right; }
+.text-center         { text-align: center; }
+
+
+// Headings
+// -------------------------
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  color: $base-color;
+  font-weight: $headings-font-weight;
+  font-family: $headings-font-family;
+  line-height: $headings-line-height;
+
+  small {
+    font-weight: normal;
+    line-height: 1;
+  }
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3 {
+  margin-top: $line-height-computed;
+  margin-bottom: ($line-height-computed / 2);
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  + h1, + .h1,
+  + h2, + .h2,
+  + h3, + .h3 {
+    margin-top: ($line-height-computed / 2);
+  }
+}
+
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  margin-top: ($line-height-computed / 2);
+  margin-bottom: ($line-height-computed / 2);
+}
+
+h1, .h1 { font-size: floor($font-size-base * 2.60); } // ~36px
+h2, .h2 { font-size: floor($font-size-base * 2.15); } // ~30px
+h3, .h3 { font-size: ceil($font-size-base * 1.70); } // ~24px
+h4, .h4 { font-size: ceil($font-size-base * 1.25); } // ~18px
+h5, .h5 { font-size:  $font-size-base; }
+h6, .h6 { font-size: ceil($font-size-base * 0.85); } // ~12px
+
+h1 small, .h1 small { font-size: ceil($font-size-base * 1.70); } // ~24px
+h2 small, .h2 small { font-size: ceil($font-size-base * 1.25); } // ~18px
+h3 small, .h3 small,
+h4 small, .h4 small { font-size: $font-size-base; }
+
+
+// Description Lists
+// -------------------------
+
+dl {
+  margin-bottom: $line-height-computed;
+}
+dt,
+dd {
+  line-height: $line-height-base;
+}
+dt {
+  font-weight: bold;
+}
+
+
+// Blockquotes
+// -------------------------
+
+blockquote {
+  margin: 0 0 $line-height-computed;
+  padding: ($line-height-computed / 2) $line-height-computed;
+  border-left: 5px solid gray;
+  
+  p {
+    font-weight: 300;
+    font-size: ($font-size-base * 1.25);
+    line-height: 1.25;
+  }
+  
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  small {
+    display: block;
+    line-height: $line-height-base;
+    &:before {
+      content: '\2014 \00A0';// EM DASH, NBSP;
+    }
+  }
+}
+
+
+// Quotes
+// -------------------------
+
+q:before,
+q:after,
+blockquote:before,
+blockquote:after {
+  content: "";
+}
+
+
+// Addresses
+// -------------------------
+
+address {
+  display: block;
+  margin-bottom: $line-height-computed;
+  font-style: normal;
+  line-height: $line-height-base;
+}
+
+
+// Links
+// -------------------------
+
+a.subdued {
+  padding-right: 10px;
+  color: #888;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+  &:last-child {
+    padding-right: 0;
+  }
+}
+
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-index-backdrop;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0,0,0,0.4);
+
+  visibility: hidden;
+  opacity: 0;
+
+  &.visible {
+    visibility: visible;
+  }
+  &.active {
+    opacity: 1;
+  }
+
+  @include transition(0.1s opacity linear);
+}
+
+
+/**
+ * Bar (Headers and Footers)
+ * --------------------------------------------------
+ */
+
+.bar {
+  @include display-flex();
+  @include translate3d(0,0,0);
+  @include user-select(none);
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: $z-index-bar;
+
+  box-sizing: border-box;
+  padding: $bar-padding-portrait;
+
+  width: 100%;
+  height: $bar-height;
+  border-width: 0;
+  border-style: solid;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid $bar-default-border;
+
+  background-color: $bar-default-bg;
+
+  /* border-width: 1px will actually create 2 device pixels on retina */
+  /* this nifty trick sets an actual 1px border on hi-res displays */
+  background-size: 0;
+  @media (min--moz-device-pixel-ratio: 1.5),
+         (-webkit-min-device-pixel-ratio: 1.5),
+         (min-device-pixel-ratio: 1.5),
+         (min-resolution: 144dpi),
+         (min-resolution: 1.5dppx) {
+    border: none;
+    background-image: linear-gradient(0deg, $bar-default-border, $bar-default-border 50%, transparent 50%);
+    background-position: bottom;
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+  }
+
+  &.bar-clear {
+    border: none;
+    background: none;
+    color: #fff;
+
+    .button {
+      color: #fff;
+    }
+    .title {
+      color: #fff;
+    }
+  }
+
+  &.item-input-inset {
+    .item-input-wrapper {
+      margin-top: -1px;
+
+      input {
+        padding-left: 8px;
+        width: 94%;
+        height: 28px;
+        background: transparent;
+      }
+    }
+  }
+
+  &.bar-light {
+    @include bar-style($bar-light-bg, $bar-light-border, $bar-light-text);
+    &.bar-footer{
+      background-image: linear-gradient(180deg, $bar-light-border, $bar-light-border 50%, transparent 50%);
+    }
+  }
+  &.bar-stable {
+    @include bar-style($bar-stable-bg, $bar-stable-border, $bar-stable-text);
+    &.bar-footer{
+      background-image: linear-gradient(180deg, $bar-stable-border, $bar-stable-border 50%, transparent 50%);
+    }
+  }
+  &.bar-positive {
+    @include bar-style($bar-positive-bg, $bar-positive-border, $bar-positive-text);
+    &.bar-footer{
+      background-image: linear-gradient(180deg, $bar-positive-border, $bar-positive-border 50%, transparent 50%);
+    }
+  }
+  &.bar-calm {
+    @include bar-style($bar-calm-bg, $bar-calm-border, $bar-calm-text);
+    &.bar-footer{
+      background-image: linear-gradient(180deg, $bar-calm-border, $bar-calm-border 50%, transparent 50%);
+    }
+  }
+  &.bar-assertive {
+    @include bar-style($bar-assertive-bg, $bar-assertive-border, $bar-assertive-text);
+    &.bar-footer{
+      background-image: linear-gradient(180deg, $bar-assertive-border, $bar-assertive-border 50%, transparent 50%);
+    }
+  }
+  &.bar-balanced {
+    @include bar-style($bar-balanced-bg, $bar-balanced-border, $bar-balanced-text);
+    &.bar-footer{
+      background-image: linear-gradient(180deg, $bar-balanced-border, $bar-positive-border 50%, transparent 50%);
+    }
+  }
+  &.bar-energized {
+    @include bar-style($bar-energized-bg, $bar-energized-border, $bar-energized-text);
+    &.bar-footer{
+      background-image: linear-gradient(180deg, $bar-energized-border, $bar-energized-border 50%, transparent 50%);
+    }
+  }
+  &.bar-royal {
+    @include bar-style($bar-royal-bg, $bar-royal-border, $bar-royal-text);
+    &.bar-footer{
+      background-image: linear-gradient(180deg, $bar-royal-border, $bar-royal-border 50%, transparent 50%);
+    }
+  }
+  &.bar-dark {
+    @include bar-style($bar-dark-bg, $bar-dark-border, $bar-dark-text);
+    &.bar-footer{
+      background-image: linear-gradient(180deg, $bar-dark-border, $bar-dark-border 50%, transparent 50%);
+    }
+  }
+
+  // Title inside of a bar is centered
+  .title {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: $z-index-bar-title;
+    overflow: hidden;
+
+    margin: 0 10px;
+
+    min-width: 30px;
+    height: $bar-height - 1;
+
+    text-align: center;
+
+    // Go into ellipsis if too small
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: $bar-title-font-size;
+
+    line-height: $bar-height;
+
+    &.title-left {
+      text-align: left;
+    }
+    &.title-right {
+      text-align: right;
+    }
+  }
+
+  .title a {
+    color: inherit;
+  }
+
+  .button {
+    z-index: $z-index-bar-button;
+    padding: 0 $button-bar-button-padding;
+    min-width: initial;
+    min-height: $button-bar-button-height - 1;
+    font-weight: 400;
+    font-size: $button-bar-button-font-size;
+    line-height: $button-bar-button-height;
+
+    &.button-icon:before,
+    .icon:before,
+    &.icon:before,
+    &.icon-left:before,
+    &.icon-right:before {
+      padding-right: 2px;
+      padding-left: 2px;
+      font-size: $button-bar-button-icon-size;
+      line-height: $button-bar-button-height;
+    }
+
+    &.button-icon {
+      font-size: $bar-title-font-size;
+      .icon:before,
+      &:before,
+      &.icon-left:before,
+      &.icon-right:before {
+        vertical-align: top;
+        font-size: $button-large-icon-size;
+        line-height: $button-bar-button-height;
+      }
+    }
+    &.button-clear {
+      padding-right: 2px;
+      padding-left: 2px;
+      font-weight: 300;
+      font-size: $bar-title-font-size;
+
+      .icon:before,
+      &.icon:before,
+      &.icon-left:before,
+      &.icon-right:before {
+        font-size: $button-large-icon-size;
+        line-height: $button-bar-button-height;
+      }
+    }
+
+    &.back-button {
+      padding: 0;
+      opacity: 0.8;
+      .back-button-title {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 4px;
+      }
+    }
+
+    &.back-button.active,
+    &.back-button.activated {
+      opacity: 1;
+    }
+  }
+
+  .button-bar > .button,
+  .buttons > .button {
+    min-height: $button-bar-button-height - 1;
+    line-height: $button-bar-button-height;
+  }
+
+  .button-bar + .button,
+  .button + .button-bar {
+    margin-left: 5px;
+  }
+
+  // Android 4.4 messes with the display property
+  .buttons,
+  .buttons.left-buttons,
+  .buttons.right-buttons {
+    display: inherit;
+  }
+  .buttons span {
+    display: inline-flex;
+  }
+
+  // Place the last button in a bar on the right of the bar
+  .title + .button:last-child,
+  > .button + .button:last-child,
+  > .button.pull-right,
+  .buttons.pull-right,
+  .title + .buttons {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    bottom: 5px;
+  }
+
+}
+
+// Default styles for buttons inside of styled bars
+.bar-light {
+  .button {
+    @include button-style($bar-light-bg, $bar-light-border, $bar-light-active-bg, $bar-light-active-border, $bar-light-text);
+    @include button-clear($bar-light-text, $bar-title-font-size);
+  }
+}
+.bar-stable {
+  .button {
+    @include button-style($bar-stable-bg, $bar-stable-border, $bar-stable-active-bg, $bar-stable-active-border, $bar-stable-text);
+    @include button-clear($bar-stable-text, $bar-title-font-size);
+  }
+}
+.bar-positive {
+  .button {
+    @include button-style($bar-positive-bg, $bar-positive-border, $bar-positive-active-bg, $bar-positive-active-border, $bar-positive-text);
+    @include button-clear(#fff, $bar-title-font-size);
+  }
+}
+.bar-calm {
+  .button {
+    @include button-style($bar-calm-bg, $bar-calm-border, $bar-calm-active-bg, $bar-calm-active-border, $bar-calm-text);
+    @include button-clear(#fff, $bar-title-font-size);
+  }
+}
+.bar-assertive {
+  .button {
+    @include button-style($bar-assertive-bg, $bar-assertive-border, $bar-assertive-active-bg, $bar-assertive-active-border, $bar-assertive-text);
+    @include button-clear(#fff, $bar-title-font-size);
+  }
+}
+.bar-balanced {
+  .button {
+    @include button-style($bar-balanced-bg, $bar-balanced-border, $bar-balanced-active-bg, $bar-balanced-active-border, $bar-balanced-text);
+    @include button-clear(#fff, $bar-title-font-size);
+  }
+}
+.bar-energized {
+  .button {
+    @include button-style($bar-energized-bg, $bar-energized-border, $bar-energized-active-bg, $bar-energized-active-border, $bar-energized-text);
+    @include button-clear(#fff, $bar-title-font-size);
+  }
+}
+.bar-royal {
+  .button {
+    @include button-style($bar-royal-bg, $bar-royal-border, $bar-royal-active-bg, $bar-royal-active-border, $bar-royal-text);
+    @include button-clear(#fff, $bar-title-font-size);
+  }
+}
+.bar-dark {
+  .button {
+    @include button-style($bar-dark-bg, $bar-dark-border, $bar-dark-active-bg, $bar-dark-active-border, $bar-dark-text);
+    @include button-clear(#fff, $bar-title-font-size);
+  }
+}
+
+// Header at top
+.bar-header {
+  top: 0;
+  border-top-width: 0;
+  border-bottom-width: 1px;
+  &.has-tabs-top{
+    border-bottom-width: 0px;
+  }
+}
+
+// Footer at bottom
+.bar-footer {
+  bottom: 0;
+  border-top-width: 1px;
+  border-bottom-width: 0;
+  background-position: top;
+
+  &.item-input-inset {
+    position: absolute;
+  }
+}
+
+// Don't render padding if the bar is just for tabs
+.bar-tabs {
+  padding: 0;
+}
+
+.bar-subheader {
+  top: $bar-height;
+  display: block;
+}
+.bar-subfooter {
+  bottom: $bar-height;
+  display: block;
+}
+
+/**
+ * Tabs
+ * --------------------------------------------------
+ * A navigation bar with any number of tab items supported.
+ */
+
+.tabs {
+  @include display-flex();
+  @include flex-direction(horizontal);
+  @include justify-content(center);
+  @include translate3d(0,0,0);
+
+  @include tab-style($tabs-default-bg, $tabs-default-border, $tabs-default-text);
+  @include tab-badge-style($tabs-default-text, $tabs-default-bg);
+
+  position: absolute;
+  bottom: 0;
+
+  z-index: $z-index-tabs;
+
+  width: 100%;
+  height: $tabs-height;
+
+  border-style: solid;
+  border-top-width: 1px;
+
+  background-size: 0;
+  line-height: $tabs-height;
+
+  @media (min--moz-device-pixel-ratio: 1.5),
+         (-webkit-min-device-pixel-ratio: 1.5),
+         (min-device-pixel-ratio: 1.5),
+         (min-resolution: 144dpi),
+         (min-resolution: 1.5dppx) {
+    padding-top: 2px;
+    border-top: none !important;
+    border-bottom: none;
+    background-position: top;
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+  }
+
+}
+/* Allow parent element of tabs to define color, or just the tab itself */
+.tabs-light > .tabs,
+.tabs.tabs-light {
+  @include tab-style($tabs-light-bg, $tabs-light-border, $tabs-light-text);
+  @include tab-badge-style($tabs-light-text, $tabs-light-bg);
+}
+.tabs-stable > .tabs,
+.tabs.tabs-stable {
+  @include tab-style($tabs-stable-bg, $tabs-stable-border, $tabs-stable-text);
+  @include tab-badge-style($tabs-stable-text, $tabs-stable-bg);
+}
+.tabs-positive > .tabs,
+.tabs.tabs-positive {
+  @include tab-style($tabs-positive-bg, $tabs-positive-border, $tabs-positive-text);
+  @include tab-badge-style($tabs-positive-text, $tabs-positive-bg);
+}
+.tabs-calm > .tabs,
+.tabs.tabs-calm {
+  @include tab-style($tabs-calm-bg, $tabs-calm-border, $tabs-calm-text);
+  @include tab-badge-style($tabs-calm-text, $tabs-calm-bg);
+}
+.tabs-assertive > .tabs,
+.tabs.tabs-assertive {
+  @include tab-style($tabs-assertive-bg, $tabs-assertive-border, $tabs-assertive-text);
+  @include tab-badge-style($tabs-assertive-text, $tabs-assertive-bg);
+}
+.tabs-balanced > .tabs,
+.tabs.tabs-balanced {
+  @include tab-style($tabs-balanced-bg, $tabs-balanced-border, $tabs-balanced-text);
+  @include tab-badge-style($tabs-balanced-text, $tabs-balanced-bg);
+}
+.tabs-energized > .tabs,
+.tabs.tabs-energized {
+  @include tab-style($tabs-energized-bg, $tabs-energized-border, $tabs-energized-text);
+  @include tab-badge-style($tabs-energized-text, $tabs-energized-bg);
+}
+.tabs-royal > .tabs,
+.tabs.tabs-royal {
+  @include tab-style($tabs-royal-bg, $tabs-royal-border, $tabs-royal-text);
+  @include tab-badge-style($tabs-royal-text, $tabs-royal-bg);
+}
+.tabs-dark > .tabs,
+.tabs.tabs-dark {
+  @include tab-style($tabs-dark-bg, $tabs-dark-border, $tabs-dark-text);
+  @include tab-badge-style($tabs-dark-text, $tabs-dark-bg);
+}
+
+@mixin tabs-striped($style, $color, $background) {
+  &.#{$style} {
+    .tabs{
+      background-color: $background;
+    }
+    .tab-item {
+      color: rgba($color, $tabs-striped-off-opacity);
+      opacity: 1;
+      .badge{
+        opacity:$tabs-striped-off-opacity;
+      }
+      &.tab-item-active,
+      &.active,
+      &.activated {
+        margin-top: -$tabs-striped-border-width;
+        color: $color;
+        border-style: solid;
+        border-width: $tabs-striped-border-width 0 0 0;
+        border-color: $color;
+        .badge{
+          top:$tabs-striped-border-width;
+          opacity: 1;
+        }
+      }
+    }
+  }
+  &.tabs-top{
+    .tab-item {
+      &.tab-item-active,
+      &.active,
+      &.activated {
+        .badge {
+          top: 4%;
+        }
+      }
+    }
+  }
+}
+
+@mixin tabs-background($style, $color) {
+  &.#{$style} {
+    .tabs {
+      background-color: $color;
+    }
+  }
+}
+
+@mixin tabs-color($style, $color) {
+  &.#{$style} {
+    .tab-item {
+      color: rgba($color, $tabs-striped-off-opacity);
+      opacity: 1;
+      .badge{
+        opacity:$tabs-striped-off-opacity;
+      }
+      &.tab-item-active,
+      &.active,
+      &.activated {
+        margin-top: -$tabs-striped-border-width;
+        color: $color;
+        border: 0 solid $color;
+        border-top-width: $tabs-striped-border-width;
+        .badge{
+          top:$tabs-striped-border-width;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.tabs-striped {
+  .tabs {
+    background-color: white;
+    background-image: none;
+    border: none;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+    padding-top: $tabs-striped-border-width;
+  }
+  .tab-item {
+    // default android tab style
+    &.tab-item-active,
+    &.active,
+    &.activated {
+      margin-top: -$tabs-striped-border-width;
+      border-style: solid;
+      border-width: $tabs-striped-border-width 0 0 0;
+      border-color: $dark;
+    }
+  }
+  @include tabs-striped('tabs-light', $light, $dark);
+  @include tabs-striped('tabs-stable', $stable, $dark);
+  @include tabs-striped('tabs-positive', $positive, $light);
+  @include tabs-striped('tabs-calm', $calm, $light);
+  @include tabs-striped('tabs-assertive', $assertive, $light);
+  @include tabs-striped('tabs-balanced', $balanced, $light);
+  @include tabs-striped('tabs-energized', $energized, $light);
+  @include tabs-striped('tabs-royal', $royal, $light);
+  @include tabs-striped('tabs-dark', $dark, $light);
+
+
+  @include tabs-background('tabs-background-light', $light);
+  @include tabs-background('tabs-background-stable', $stable);
+  @include tabs-background('tabs-background-positive', $positive);
+  @include tabs-background('tabs-background-calm', $calm);
+  @include tabs-background('tabs-background-assertive', $assertive);
+  @include tabs-background('tabs-background-balanced', $balanced);
+  @include tabs-background('tabs-background-energized',$energized);
+  @include tabs-background('tabs-background-royal', $royal);
+  @include tabs-background('tabs-background-dark', $dark);
+
+  @include tabs-color('tabs-color-light', $light);
+  @include tabs-color('tabs-color-stable', $stable);
+  @include tabs-color('tabs-color-positive', $positive);
+  @include tabs-color('tabs-color-calm', $calm);
+  @include tabs-color('tabs-color-assertive', $assertive);
+  @include tabs-color('tabs-color-balanced', $balanced);
+  @include tabs-color('tabs-color-energized',$energized);
+  @include tabs-color('tabs-color-royal', $royal);
+  @include tabs-color('tabs-color-dark', $dark);
+}
+
+.tabs-top {
+  &.tabs-striped {
+    padding-bottom:0;
+    .tab-item{
+      background: transparent;
+      // animate the top bar, leave bottom for platform consistency
+      -webkit-transition: all .1s ease;
+      -moz-transition: all .1s ease;
+      -ms-transition: all .1s ease;
+      -o-transition: all .1s ease;
+      transition: all .1s ease;
+      &.tab-item-active,
+      &.active,
+      &.activated {
+        margin-top: 0;
+        margin-bottom: -$tabs-striped-border-width;
+        border-width: 0px 0px $tabs-striped-border-width 0px !important;
+        border-style: solid;
+      }
+      .badge{
+        -webkit-transition: all .2s ease;
+        -moz-transition: all .2s ease;
+        -ms-transition: all .2s ease;
+        -o-transition: all .2s ease;
+        transition: all .2s ease;
+      }
+    }
+  }
+}
+
+/* Allow parent element to have tabs-top */
+/* If you change this, change platform.scss as well */
+.tabs-top > .tabs,
+.tabs.tabs-top {
+  top: $bar-height;
+  padding-top: 0;
+  background-position: bottom;
+  .tab-item {
+    &.tab-item-active,
+    &.active,
+    &.activated {
+      .badge {
+        top: 4%;
+      }
+    }
+  }
+}
+.tabs-top ~ .bar-header {
+  border-bottom-width: 0;
+}
+
+.tab-item {
+  @include flex(1);
+  display: block;
+  overflow: hidden;
+
+  max-width: $tab-item-max-width;
+  height: 100%;
+
+  color: inherit;
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-weight: 400;
+  font-size: $tabs-text-font-size;
+  font-family: $font-family-light-sans-serif;
+
+  opacity: 0.7;
+
+  &:hover {
+    cursor: pointer;
+  }
+  &.tab-hidden{
+    display:none;
+  }
+}
+
+.tabs-item-hide > .tabs,
+.tabs.tabs-item-hide {
+  display: none;
+}
+
+.tabs-icon-top > .tabs .tab-item,
+.tabs-icon-top.tabs .tab-item,
+.tabs-icon-bottom > .tabs .tab-item,
+.tabs-icon-bottom.tabs .tab-item {
+  font-size: $tabs-text-font-size-side-icon;
+  line-height: $tabs-text-font-size;
+}
+
+.tab-item .icon {
+  display: block;
+  margin: 0 auto;
+  height: $tabs-icon-size;
+  font-size: $tabs-icon-size;
+}
+
+.tabs-icon-left.tabs .tab-item,
+.tabs-icon-left > .tabs .tab-item,
+.tabs-icon-right.tabs .tab-item,
+.tabs-icon-right > .tabs .tab-item {
+  font-size: $tabs-text-font-size-side-icon;
+
+  .icon {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: -.1em;
+
+    &:before {
+    font-size: $tabs-icon-size - 8;
+    line-height: $tabs-height;
+    }
+  }
+}
+
+.tabs-icon-left > .tabs .tab-item .icon,
+.tabs-icon-left.tabs .tab-item .icon {
+  padding-right: 3px;
+}
+
+.tabs-icon-right > .tabs .tab-item .icon,
+.tabs-icon-right.tabs .tab-item .icon {
+  padding-left: 3px;
+}
+
+.tabs-icon-only > .tabs .icon,
+.tabs-icon-only.tabs .icon {
+  line-height: inherit;
+}
+
+
+.tab-item.has-badge {
+  position: relative;
+}
+
+.tab-item .badge {
+  position: absolute;
+  top: 4%;
+  right: 33%; // fallback
+  right: calc(50% - 26px);
+  padding: $tabs-badge-padding;
+  height: auto;
+  font-size: $tabs-badge-font-size;
+  line-height: $tabs-badge-font-size + 4;
+}
+
+
+/* Navigational tab */
+
+/* Active state for tab */
+.tab-item.tab-item-active,
+.tab-item.active,
+.tab-item.activated {
+  opacity: 1;
+
+  &.tab-item-light {
+    color: $light;
+  }
+  &.tab-item-stable {
+    color: $stable;
+  }
+  &.tab-item-positive {
+    color: $positive;
+  }
+  &.tab-item-calm {
+    color: $calm;
+  }
+  &.tab-item-assertive {
+    color: $assertive;
+  }
+  &.tab-item-balanced {
+    color: $balanced;
+  }
+  &.tab-item-energized {
+    color: $energized;
+  }
+  &.tab-item-royal {
+    color: $royal;
+  }
+  &.tab-item-dark {
+    color: $dark;
+  }
+}
+
+.item.tabs {
+  @include display-flex();
+  padding: 0;
+
+  .icon:before {
+    position: relative;
+  }
+}
+
+.tab-item.disabled,
+.tab-item[disabled] {
+  opacity: .4;
+  cursor: default;
+  pointer-events: none;
+}
+
+/** Platform styles **/
+
+.tab-item.tab-item-ios {
+}
+.tab-item.tab-item-android {
+  border-top: 2px solid inherit;
+}
+
+
+/**
+ * Menus
+ * --------------------------------------------------
+ * Side panel structure
+ */
+
+.menu {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: $z-index-menu;
+  overflow: hidden;
+
+  min-height: 100%;
+  max-height: 100%;
+  width: $menu-width;
+
+  background-color: $menu-bg;
+
+  .scroll-content {
+    z-index: $z-index-menu-scroll-content;
+  }
+
+  .bar-header {
+    z-index: $z-index-menu-bar-header;
+  }
+}
+
+.menu-content {
+  @include transform(none);
+  box-shadow: $menu-side-shadow;
+}
+
+.menu-open .menu-content .pane,
+.menu-open .menu-content .scroll-content {
+  pointer-events: none;
+}
+
+.grade-b .menu-content,
+.grade-c .menu-content {
+  @include box-sizing(content-box);
+  right: -1px;
+  left: -1px;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  box-shadow: none;
+}
+
+.menu-left {
+  left: 0;
+}
+
+.menu-right {
+  right: 0;
+}
+
+.aside-open.aside-resizing .menu-right {
+  display: none;
+}
+
+.menu-animated {
+  @include transition-transform($menu-animation-speed ease);
+}
+
+
+/**
+ * Modals
+ * --------------------------------------------------
+ * Modals are independent windows that slide in from off-screen.
+ */
+
+.modal-backdrop {
+  @include transition(background-color 300ms ease-in-out);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-index-modal;
+  width: 100%;
+  height: 100%;
+  background-color: $modal-backdrop-bg-inactive;
+
+  &.active {
+    background-color: $modal-backdrop-bg-active;
+  }
+}
+
+.modal {
+  display: block;
+  position: absolute;
+  top: 0;
+  z-index: $z-index-modal;
+  overflow: hidden;
+  min-height: 100%;
+  width: 100%;
+  background-color: $modal-bg-color;
+}
+
+@media (min-width: $modal-inset-mode-break-point) {
+  // inset mode is when the modal doesn't fill the entire
+  // display but instead is centered within a large display
+  .modal {
+    top: $modal-inset-mode-top;
+    right: $modal-inset-mode-right;
+    bottom: $modal-inset-mode-bottom;
+    left: $modal-inset-mode-left;
+    overflow: visible;
+    min-height: $modal-inset-mode-min-height;
+    width: (100% - $modal-inset-mode-left - $modal-inset-mode-right);
+  }
+
+  .modal.ng-leave-active {
+    bottom: 0;
+  }
+
+  // remove ios header padding from inset header
+  .platform-ios.platform-cordova .modal-wrapper .modal{
+    .bar-header:not(.bar-subheader) {
+      height: $bar-height;
+      > * {
+        margin-top: 0;
+      }
+    }
+    .tabs-top > .tabs,
+    .tabs.tabs-top {
+      top: $bar-height;
+    }
+    .has-header,
+    .bar-subheader {
+      top: $bar-height;
+    }
+    .has-subheader {
+      top: (2 * $bar-height);
+    }
+    .has-tabs-top {
+      top: $bar-height + $tabs-height;
+    }
+    .has-header.has-subheader.has-tabs-top {
+      top: 2 * $bar-height + $tabs-height;
+    }
+  }
+}
+
+// disable clicks on all but the modal
+.modal-open {
+  pointer-events: none;
+
+  .modal,
+  .modal-backdrop {
+    pointer-events: auto;
+  }
+  // prevent clicks on modal when loading overlay is active though
+  &.loading-active {
+    .modal,
+    .modal-backdrop {
+      pointer-events: none;
+    }
+  }
+}
+
+
+/**
+ * Popovers
+ * --------------------------------------------------
+ * Popovers are independent views which float over content
+ */
+
+.popover-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-index-popover;
+  width: 100%;
+  height: 100%;
+  background-color: $popover-backdrop-bg-inactive;
+
+  &.active {
+    background-color: $popover-backdrop-bg-active;
+  }
+}
+
+.popover {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  z-index: $z-index-popover;
+  display: block;
+  margin-top: 12px;
+  margin-left: -$popover-width / 2;
+  height: $popover-height;
+  width: $popover-width;
+  background-color: $popover-bg-color;
+  box-shadow: $popover-box-shadow;
+  opacity: 0;
+
+  .item:first-child {
+    border-top: 0;
+  }
+
+  .item:last-child {
+    border-bottom: 0;
+  }
+
+  &.popover-bottom {
+    margin-top: -12px;
+  }
+}
+
+
+// Set popover border-radius
+.popover,
+.popover .bar-header {
+  border-radius: $popover-border-radius;
+}
+.popover .scroll-content {
+  z-index: 1;
+  margin: 2px 0;
+}
+.popover .bar-header {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.popover .has-header {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+.popover-arrow {
+  display: none;
+}
+
+
+// iOS Popover
+.platform-ios {
+
+  .popover {
+    box-shadow: $popover-box-shadow-ios;
+  }
+
+  .popover,
+  .popover .bar-header {
+    border-radius: $popover-border-radius-ios;
+  }
+  .popover .scroll-content {
+    margin: 8px 0;
+    border-radius: $popover-border-radius-ios;
+  }
+  .popover .scroll-content.has-header {
+    margin-top: 0;
+  }
+  .popover-arrow {
+    position: absolute;
+    display: block;
+    top: -17px;
+    width: 30px;
+    height: 19px;
+    overflow: hidden;
+
+    &:after {
+      position: absolute;
+      top: 12px;
+      left: 5px;
+      width: 20px;
+      height: 20px;
+      background-color: $popover-bg-color;
+      border-radius: 3px;
+      content: '';
+      @include rotate(-45deg);
+    }
+  }
+  .popover-bottom .popover-arrow {
+    top: auto;
+    bottom: -10px;
+    &:after {
+      top: -6px;
+    }
+  }
+}
+
+
+// Android Popover
+.platform-android {
+
+  .popover {
+    margin-top: -32px;
+    background-color: $popover-bg-color-android;
+    box-shadow: $popover-box-shadow-android;
+
+    .item {
+      border-color: $popover-bg-color-android;
+      background-color: $popover-bg-color-android;
+      color: #4d4d4d;
+    }
+    &.popover-bottom {
+      margin-top: 32px;
+    }
+  }
+
+  .popover-backdrop,
+  .popover-backdrop.active {
+    background-color: transparent;
+  }
+}
+
+
+// disable clicks on all but the popover
+.popover-open {
+  pointer-events: none;
+
+  .popover,
+  .popover-backdrop {
+    pointer-events: auto;
+  }
+  // prevent clicks on popover when loading overlay is active though
+  &.loading-active {
+    .popover,
+    .popover-backdrop {
+      pointer-events: none;
+    }
+  }
+}
+
+
+// wider popover on larger viewports
+@media (min-width: $popover-large-break-point) {
+  .popover {
+    width: $popover-large-width;
+  }
+}
+
+
+/**
+ * Popups
+ * --------------------------------------------------
+ */
+
+.popup-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0,0,0,0);
+
+  @include display-flex();
+  @include justify-content(center);
+  @include align-items(center);
+
+  z-index: $z-index-popup;
+
+  // Start hidden
+  visibility: hidden;
+  &.popup-showing {
+    visibility: visible;
+  }
+
+  &.popup-hidden .popup {
+    @include animation-name(scaleOut);
+    @include animation-duration($popup-leave-animation-duration);
+    @include animation-timing-function(ease-in-out);
+    @include animation-fill-mode(both);
+  }
+
+  &.active .popup {
+    @include animation-name(superScaleIn);
+    @include animation-duration($popup-enter-animation-duration);
+    @include animation-timing-function(ease-in-out);
+    @include animation-fill-mode(both);
+  }
+
+  .popup {
+    width: $popup-width;
+    max-width: 100%;
+    max-height: 90%;
+
+    border-radius: $popup-border-radius;
+    background-color: $popup-background-color;
+
+    @include display-flex();
+    @include flex-direction(column);
+  }
+}
+
+.popup-head {
+  padding: 15px 10px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+.popup-title {
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+}
+.popup-sub-title {
+  margin: 5px 0 0 0;
+  padding: 0;
+  font-weight: normal;
+  font-size: 11px;
+}
+.popup-body {
+  padding: 10px;
+  overflow: scroll;
+}
+
+.popup-buttons {
+  @include display-flex();
+  @include flex-direction(row);
+  padding: 10px;
+  min-height: $popup-button-min-height + 20;
+
+  .button {
+    @include flex(1);
+    display: block;
+    min-height: $popup-button-min-height;
+    border-radius: $popup-button-border-radius;
+    line-height: $popup-button-line-height;
+
+    margin-right: 5px;
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+}
+
+.popup-open {
+  pointer-events: none;
+
+  &.modal-open .modal {
+    pointer-events: none;
+  }
+
+  .popup-backdrop, .popup {
+    pointer-events: auto;
+  }
+}
+
+
+/**
+ * Loading
+ * --------------------------------------------------
+ */
+
+.loading-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: $z-index-loading;
+
+  @include display-flex();
+  @include justify-content(center);
+  @include align-items(center);
+
+  @include transition(0.2s opacity linear);
+  visibility: hidden;
+  opacity: 0;
+
+  &:not(.visible) .icon {
+    display: none;
+  }
+  &.visible {
+    visibility: visible;
+  }
+  &.active {
+    opacity: 1;
+  }
+
+  .loading {
+    padding: $loading-padding;
+
+    border-radius: $loading-border-radius;
+    background-color: $loading-bg-color;
+
+    color: $loading-text-color;
+
+    text-align: center;
+    text-overflow: ellipsis;
+    font-size: $loading-font-size;
+
+    h1, h2, h3, h4, h5, h6 {
+      color: $loading-text-color;
+    }
+  }
+}
+
+/**
+ * Items
+ * --------------------------------------------------
+ */
+
+.item {
+  @include item-style($item-default-bg, $item-default-border, $item-default-text);
+
+  position: relative;
+  z-index: $z-index-item; // Make sure the borders and stuff don't get hidden by children
+  display: block;
+
+  margin: $item-border-width * -1;
+  padding: $item-padding;
+
+  border-width: $item-border-width;
+  border-style: solid;
+  font-size: $item-font-size;
+
+  h2 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+  }
+  h3 {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+  }
+  h4 {
+    margin: 0 0 4px 0;
+    font-size: 12px;
+  }
+  h5, h6 {
+    margin: 0 0 3px 0;
+    font-size: 10px;
+  }
+  p {
+    color: #666;
+    font-size: 14px;
+  }
+
+  h1:last-child,
+  h2:last-child,
+  h3:last-child,
+  h4:last-child,
+  h5:last-child,
+  h6:last-child,
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  // Align badges within items
+  .badge {
+    @include display-flex();
+    position: absolute;
+    top: $item-padding;
+    right: ($item-padding * 2);
+  }
+  &.item-button-right .badge {
+    right: ($item-padding * 2) + 35;
+  }
+  &.item-divider .badge {
+    top: ceil($item-padding / 2);
+  }
+  .badge + .badge {
+    margin-right: 5px;
+  }
+
+  // Different themes for items
+  &.item-light {
+    @include item-style($item-light-bg, $item-light-border, $item-light-text);
+  }
+  &.item-stable {
+    @include item-style($item-stable-bg, $item-stable-border, $item-stable-text);
+  }
+  &.item-positive {
+    @include item-style($item-positive-bg, $item-positive-border, $item-positive-text);
+  }
+  &.item-calm {
+    @include item-style($item-calm-bg, $item-calm-border, $item-calm-text);
+  }
+  &.item-assertive {
+    @include item-style($item-assertive-bg, $item-assertive-border, $item-assertive-text);
+  }
+  &.item-balanced {
+    @include item-style($item-balanced-bg, $item-balanced-border, $item-balanced-text);
+  }
+  &.item-energized {
+    @include item-style($item-energized-bg, $item-energized-border, $item-energized-text);
+  }
+  &.item-royal {
+    @include item-style($item-royal-bg, $item-royal-border, $item-royal-text);
+  }
+  &.item-dark {
+    @include item-style($item-dark-bg, $item-dark-border, $item-dark-text);
+  }
+
+  &[ng-click]:hover {
+    cursor: pointer;
+  }
+
+}
+
+// Link and Button Active States
+.item.active,
+.item.activated,
+.item-complex.active .item-content,
+.item-complex.activated .item-content,
+.item .item-content.active,
+.item .item-content.activated {
+  @include item-active-style($item-default-active-bg, $item-default-active-border);
+
+  // Different active themes for <a> and <button> items
+  &.item-light {
+    @include item-active-style($item-light-active-bg, $item-light-active-border);
+  }
+  &.item-stable {
+    @include item-active-style($item-stable-active-bg, $item-stable-active-border);
+  }
+  &.item-positive {
+    @include item-active-style($item-positive-active-bg, $item-positive-active-border);
+  }
+  &.item-calm {
+    @include item-active-style($item-calm-active-bg, $item-calm-active-border);
+  }
+  &.item-assertive {
+    @include item-active-style($item-assertive-active-bg, $item-assertive-active-border);
+  }
+  &.item-balanced {
+    @include item-active-style($item-balanced-active-bg, $item-balanced-active-border);
+  }
+  &.item-energized {
+    @include item-active-style($item-energized-active-bg, $item-energized-active-border);
+  }
+  &.item-royal {
+    @include item-active-style($item-royal-active-bg, $item-royal-active-border);
+  }
+  &.item-dark {
+    @include item-active-style($item-dark-active-bg, $item-dark-active-border);
+  }
+}
+
+// Handle text overflow
+.item,
+.item h1,
+.item h2,
+.item h3,
+.item h4,
+.item h5,
+.item h6,
+.item p,
+.item-content,
+.item-content h1,
+.item-content h2,
+.item-content h3,
+.item-content h4,
+.item-content h5,
+.item-content h6,
+.item-content p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Linked list items
+a.item {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+
+/**
+ * Complex Items
+ * --------------------------------------------------
+ * Adding .item-complex allows the .item to be slidable and
+ * have options underneath the button, but also requires an
+ * additional .item-content element inside .item.
+ * Basically .item-complex removes any default settings which
+ * .item added, so that .item-content looks them as just .item.
+ */
+
+.item-complex,
+a.item.item-complex,
+button.item.item-complex {
+  padding: 0;
+}
+.item-complex .item-content,
+.item-radio .item-content {
+  position: relative;
+  z-index: $z-index-item;
+  padding: $item-padding (ceil( ($item-padding * 3) + ($item-padding / 3) ) - 5) $item-padding $item-padding;
+  border: none;
+  background-color: white;
+}
+
+a.item-content {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.item-text-wrap .item,
+.item-text-wrap .item-content,
+.item-text-wrap,
+.item-text-wrap h1,
+.item-text-wrap h2,
+.item-text-wrap h3,
+.item-text-wrap h4,
+.item-text-wrap h5,
+.item-text-wrap h6,
+.item-text-wrap p,
+.item-complex.item-text-wrap .item-content,
+.item-body h1,
+.item-body h2,
+.item-body h3,
+.item-body h4,
+.item-body h5,
+.item-body h6,
+.item-body p {
+  overflow: visible;
+  white-space: normal;
+}
+.item-complex.item-text-wrap,
+.item-complex.item-text-wrap h1,
+.item-complex.item-text-wrap h2,
+.item-complex.item-text-wrap h3,
+.item-complex.item-text-wrap h4,
+.item-complex.item-text-wrap h5,
+.item-complex.item-text-wrap h6,
+.item-complex.item-text-wrap p {
+  overflow: visible;
+  white-space: normal;
+}
+
+// Link and Button Active States
+
+.item-complex{
+  // Stylized items
+  &.item-light > .item-content{
+    @include item-style($item-light-bg, $item-light-border, $item-light-text);
+    &.active, &:active {
+      @include item-active-style($item-light-active-bg, $item-light-active-border);
+    }
+  }
+  &.item-stable > .item-content{
+    @include item-style($item-stable-bg, $item-stable-border, $item-stable-text);
+    &.active, &:active {
+      @include item-active-style($item-stable-active-bg, $item-stable-active-border);
+    }
+  }
+  &.item-positive > .item-content{
+    @include item-style($item-positive-bg, $item-positive-border, $item-positive-text);
+    &.active, &:active {
+      @include item-active-style($item-positive-active-bg, $item-positive-active-border);
+    }
+  }
+  &.item-calm > .item-content{
+    @include item-style($item-calm-bg, $item-calm-border, $item-calm-text);
+    &.active, &:active {
+      @include item-active-style($item-calm-active-bg, $item-calm-active-border);
+    }
+  }
+  &.item-assertive > .item-content{
+    @include item-style($item-assertive-bg, $item-assertive-border, $item-assertive-text);
+    &.active, &:active {
+      @include item-active-style($item-assertive-active-bg, $item-assertive-active-border);
+    }
+  }
+  &.item-balanced > .item-content{
+    @include item-style($item-balanced-bg, $item-balanced-border, $item-balanced-text);
+    &.active, &:active {
+      @include item-active-style($item-balanced-active-bg, $item-balanced-active-border);
+    }
+  }
+  &.item-energized > .item-content{
+    @include item-style($item-energized-bg, $item-energized-border, $item-energized-text);
+    &.active, &:active {
+      @include item-active-style($item-energized-active-bg, $item-energized-active-border);
+    }
+  }
+  &.item-royal > .item-content{
+    @include item-style($item-royal-bg, $item-royal-border, $item-royal-text);
+    &.active, &:active {
+      @include item-active-style($item-royal-active-bg, $item-royal-active-border);
+    }
+  }
+  &.item-dark > .item-content{
+    @include item-style($item-dark-bg, $item-dark-border, $item-dark-text);
+    &.active, &:active {
+      @include item-active-style($item-dark-active-bg, $item-dark-active-border);
+    }
+  }
+}
+
+
+/**
+ * Item Icons
+ * --------------------------------------------------
+ */
+
+.item-icon-left .icon,
+.item-icon-right .icon {
+  @include display-flex();
+  @include align-items(center);
+  position: absolute;
+  top: 0;
+  height: 100%;
+  font-size: $item-icon-font-size;
+
+  &:before {
+    display: block;
+    width: $item-icon-font-size;
+    text-align: center;
+  }
+}
+
+.item .fill-icon {
+  min-width: $item-icon-fill-font-size + 2;
+  min-height: $item-icon-fill-font-size + 2;
+  font-size: $item-icon-fill-font-size;
+}
+
+.item-icon-left {
+  padding-left: ceil( ($item-padding * 3) + ($item-padding / 3) );
+
+  .icon {
+    left: ceil( ($item-padding / 3) * 2);
+  }
+}
+.item-complex.item-icon-left {
+  padding-left: 0;
+
+  .item-content {
+    padding-left: ceil( ($item-padding * 3) + ($item-padding / 3) );
+  }
+}
+
+.item-icon-right {
+  padding-right: ceil( ($item-padding * 3) + ($item-padding / 3) );
+
+  .icon {
+    right: ceil( ($item-padding / 3) * 2);
+  }
+}
+.item-complex.item-icon-right {
+  padding-right: 0;
+
+  .item-content {
+    padding-right: ceil( ($item-padding * 3) + ($item-padding / 3) );
+  }
+}
+
+.item-icon-left.item-icon-right .icon:first-child {
+  right: auto;
+}
+.item-icon-left.item-icon-right .icon:last-child,
+.item-icon-left .item-delete .icon {
+  left: auto;
+}
+
+.item-icon-left .icon-accessory,
+.item-icon-right .icon-accessory {
+  color: $item-icon-accessory-color;
+  font-size: $item-icon-accessory-font-size;
+}
+.item-icon-left .icon-accessory {
+  left: floor($item-padding / 5);
+}
+.item-icon-right .icon-accessory {
+  right: floor($item-padding / 5);
+}
+
+
+/**
+ * Item Button
+ * --------------------------------------------------
+ * An item button is a child button inside an .item (not the entire .item)
+ */
+
+.item-button-left {
+  padding-left: ceil($item-padding * 4.5);
+}
+
+.item-button-left > .button,
+.item-button-left .item-content > .button {
+  @include display-flex();
+  @include align-items(center);
+  position: absolute;
+  top: ceil($item-padding / 2);
+  left: ceil( ($item-padding / 3) * 2);
+  min-width: $item-icon-font-size + ($button-border-width * 2);
+  min-height: $item-icon-font-size + ($button-border-width * 2);
+  font-size: $item-button-font-size;
+  line-height: $item-button-line-height;
+
+  .icon:before {
+    position: relative;
+    left: auto;
+    width: auto;
+    line-height: $item-icon-font-size - 1;
+  }
+
+  > .button {
+    margin: 0px 2px;
+    min-height: $item-icon-font-size + ($button-border-width * 2);
+    font-size: $item-button-font-size;
+    line-height: $item-button-line-height;
+  }
+}
+
+.item-button-right,
+a.item.item-button-right,
+button.item.item-button-right {
+  padding-right: $item-padding * 5;
+}
+
+.item-button-right > .button,
+.item-button-right .item-content > .button,
+.item-button-right > .buttons,
+.item-button-right .item-content > .buttons {
+  @include display-flex();
+  @include align-items(center);
+  position: absolute;
+  top: ceil($item-padding / 2);
+  right: $item-padding;
+  min-width: $item-icon-font-size + ($button-border-width * 2);
+  min-height: $item-icon-font-size + ($button-border-width * 2);
+  font-size: $item-button-font-size;
+  line-height: $item-button-line-height;
+
+  .icon:before {
+    position: relative;
+    left: auto;
+    width: auto;
+    line-height: $item-icon-font-size - 1;
+  }
+
+  > .button {
+    margin: 0px 2px;
+    min-width: $item-icon-font-size + ($button-border-width * 2);
+    min-height: $item-icon-font-size + ($button-border-width * 2);
+    font-size: $item-button-font-size;
+    line-height: $item-button-line-height;
+  }
+}
+
+
+// Item Avatar
+// -------------------------------
+
+.item-avatar,
+.item-avatar .item-content,
+.item-avatar-left,
+.item-avatar-left .item-content {
+  padding-left: $item-avatar-width + ($item-padding * 2);
+  min-height: $item-avatar-width + ($item-padding * 2);
+
+  > img:first-child,
+  .item-image {
+    position: absolute;
+    top: $item-padding;
+    left: $item-padding;
+    max-width: $item-avatar-width;
+    max-height: $item-avatar-height;
+    width: 100%;
+    border-radius: $item-avatar-border-radius;
+  }
+}
+
+.item-avatar-right,
+.item-avatar-right .item-content {
+  padding-right: $item-avatar-width + ($item-padding * 2);
+  min-height: $item-avatar-width + ($item-padding * 2);
+
+  > img:first-child,
+  .item-image {
+    position: absolute;
+    top: $item-padding;
+    right: $item-padding;
+    max-width: $item-avatar-width;
+    max-height: $item-avatar-height;
+    width: 100%;
+    border-radius: $item-avatar-border-radius;
+  }
+}
+
+
+// Item Thumbnails
+// -------------------------------
+
+.item-thumbnail-left,
+.item-thumbnail-left .item-content {
+  padding-left: $item-thumbnail-width + $item-thumbnail-margin + $item-padding;
+  min-height: $item-thumbnail-height + ($item-thumbnail-margin * 2);
+
+  > img:first-child,
+  .item-image {
+    position: absolute;
+    top: $item-thumbnail-margin;
+    left: $item-thumbnail-margin;
+    max-width: $item-thumbnail-width;
+    max-height: $item-thumbnail-height;
+    width: 100%;
+  }
+}
+.item-avatar.item-complex,
+.item-avatar-left.item-complex,
+.item-thumbnail-left.item-complex {
+  padding-left: 0;
+}
+
+.item-thumbnail-right,
+.item-thumbnail-right .item-content {
+  padding-right: $item-thumbnail-width + $item-thumbnail-margin + $item-padding;
+  min-height: $item-thumbnail-height + ($item-thumbnail-margin * 2);
+
+  > img:first-child,
+  .item-image {
+    position: absolute;
+    top: $item-thumbnail-margin;
+    right: $item-thumbnail-margin;
+    max-width: $item-thumbnail-width;
+    max-height: $item-thumbnail-height;
+    width: 100%;
+  }
+}
+.item-avatar-right.item-complex,
+.item-thumbnail-right.item-complex {
+  padding-right: 0;
+}
+
+
+// Item Image
+// -------------------------------
+
+.item-image {
+  padding: 0;
+  text-align: center;
+
+  img:first-child, .list-img {
+    width: 100%;
+    vertical-align: middle;
+  }
+}
+
+
+// Item Body
+// -------------------------------
+
+.item-body {
+  overflow: auto;
+  padding: $item-padding;
+  text-overflow: inherit;
+  white-space: normal;
+
+  h1, h2, h3, h4, h5, h6, p {
+    margin-top: $item-padding;
+    margin-bottom: $item-padding;
+  }
+}
+
+
+// Item Divider
+// -------------------------------
+
+.item-divider {
+  padding-top: ceil($item-padding / 2);
+  padding-bottom: ceil($item-padding / 2);
+  min-height: 30px;
+  background-color: $item-divider-bg;
+  color: $item-divider-color;
+  font-weight: bold;
+}
+
+
+// Item Note
+// -------------------------------
+
+.item-note {
+  float: right;
+  color: #aaa;
+  font-size: 14px;
+}
+
+
+// Item Editing
+// -------------------------------
+
+.item-left-editable .item-content,
+.item-right-editable .item-content {
+  // setup standard transition settings
+  @include transition-duration( $item-edit-transition-duration );
+  @include transition-timing-function( $item-edit-transition-function );
+  -webkit-transition-property: -webkit-transform;
+     -moz-transition-property: -moz-transform;
+          transition-property: transform;
+}
+
+.list-left-editing .item-left-editable .item-content,
+.item-left-editing.item-left-editable .item-content {
+  // actively editing the left side of the item
+  @include translate3d($item-left-edit-open-width, 0, 0);
+}
+
+.list-right-editing .item-right-editable .item-content,
+.item-right-editing.item-right-editable .item-content {
+  // actively editing the left side of the item
+  @include translate3d(-$item-right-edit-open-width, 0, 0);
+}
+
+
+// Item Left Edit Button
+// -------------------------------
+
+.item-left-edit {
+  @include transition(all $item-edit-transition-function $item-edit-transition-duration / 2);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: $z-index-item-edit;
+  width: $item-left-edit-open-width;
+  height: 100%;
+  line-height: 100%;
+
+  .button {
+    height: 100%;
+
+    &.icon {
+      @include display-flex();
+      @include align-items(center);
+      position: absolute;
+      top: 0;
+      height: 100%;
+    }
+  }
+
+  display: none;
+  opacity: 0;
+  @include translate3d( ($item-left-edit-left - $item-left-edit-open-width) / 2, 0, 0);
+  &.visible {
+    display: block;
+    &.active {
+      opacity: 1;
+      @include translate3d($item-left-edit-left, 0, 0);
+    }
+  }
+}
+.list-left-editing .item-left-edit {
+  @include transition-delay($item-edit-transition-duration / 2);
+}
+
+// Item Delete (Left side edit button)
+// -------------------------------
+
+.item-delete .button.icon {
+  color: $item-delete-icon-color;
+  font-size: $item-delete-icon-size;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+
+// Item Right Edit Button
+// -------------------------------
+
+.item-right-edit {
+  @include transition(all $item-edit-transition-function $item-edit-transition-duration / 2);
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  width: $item-right-edit-open-width *  1.5;
+  height: 100%;
+  background: inherit;
+  padding-left: 20px;
+
+  .button {
+    min-width: $item-right-edit-open-width;
+    height: 100%;
+
+    &.icon {
+      @include display-flex();
+      @include align-items(center);
+      position: absolute;
+      top: 0;
+      height: 100%;
+      font-size: $item-reorder-icon-size;
+    }
+  }
+
+  display: none;
+  opacity: 0;
+  @include translate3d($item-right-edit-open-width / 2, 0, 0);
+  &.visible {
+    display: block;
+    z-index: $z-index-item-reorder;
+    &.active {
+      opacity: 1;
+      @include translate3d(0, 0, 0);
+    }
+  }
+}
+.list-right-editing .item-right-edit {
+  @include transition-delay($item-edit-transition-duration / 2);
+}
+
+
+// Item Reordering (Right side edit button)
+// -------------------------------
+
+.item-reorder .button.icon {
+  color: $item-reorder-icon-color;
+  font-size: $item-reorder-icon-size;
+}
+
+.item-reordering {
+  // item is actively being reordered
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: $z-index-item-reordering;
+  width: 100%;
+  box-shadow: 0px 0px 10px 0px #aaa;
+
+  .item-reorder {
+    z-index: 1;
+  }
+}
+
+.item-placeholder {
+  // placeholder for the item that's being reordered
+  opacity: 0.7;
+}
+
+
+/**
+ * The hidden right-side buttons that can be exposed under a list item
+ * with dragging.
+ */
+.item-options {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: $z-index-item-options;
+  height: 100%;
+
+  .button {
+    height: 100%;
+    border: none;
+    border-radius: 0;
+  }
+}
+
+
+/**
+ * Lists
+ * --------------------------------------------------
+ */
+
+.list {
+  position: relative;
+  padding-top: $item-border-width;
+  padding-bottom: $item-border-width;
+  padding-left: 0; // reset padding because ul and ol
+  margin-bottom: 20px;
+}
+.list:last-child {
+  margin-bottom: 0px;
+  &.card{
+    margin-bottom:40px;
+  }
+}
+
+
+/**
+ * List Header
+ * --------------------------------------------------
+ */
+
+.list-header {
+  margin-top: $list-header-margin-top;
+  padding: $list-header-padding;
+  background-color: $list-header-bg;
+  color: $list-header-color;
+  font-weight: bold;
+}
+
+// when its a card make sure it doesn't duplicate top and bottom borders
+.card.list .list-item {
+  padding-right: 1px;
+  padding-left: 1px;
+}
+
+
+/**
+ * Cards and Inset Lists
+ * --------------------------------------------------
+ * A card and list-inset are close to the same thing, except a card as a box shadow.
+ */
+
+.card,
+.list-inset {
+  overflow: hidden;
+  margin: ($content-padding * 2) $content-padding;
+  border-radius: $card-border-radius;
+  background-color: $card-body-bg;
+}
+
+.card {
+  padding-top: $item-border-width;
+  padding-bottom: $item-border-width;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .10);
+}
+
+.padding {
+  .card, .list-inset {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.card .item,
+.list-inset .item,
+.padding > .list .item
+{
+  &:first-child {
+    border-top-left-radius: $card-border-radius;
+    border-top-right-radius: $card-border-radius;
+
+    .item-content {
+      border-top-left-radius: $card-border-radius;
+      border-top-right-radius: $card-border-radius;
+    }
+  }
+  &:last-child {
+    border-bottom-right-radius: $card-border-radius;
+    border-bottom-left-radius: $card-border-radius;
+
+    .item-content {
+      border-bottom-right-radius: $card-border-radius;
+      border-bottom-left-radius: $card-border-radius;
+    }
+  }
+}
+
+.card .item:last-child,
+.list-inset .item:last-child {
+  margin-bottom: $item-border-width * -1;
+}
+
+.card .item,
+.list-inset .item,
+.padding > .list .item,
+.padding-horizontal > .list .item {
+  margin-right: 0;
+  margin-left: 0;
+
+  &.item-input input {
+    padding-right: 44px;
+  }
+}
+.padding-left > .list .item {
+  margin-left: 0;
+}
+.padding-right > .list .item {
+  margin-right: 0;
+}
+
+
+/**
+ * Badges
+ * --------------------------------------------------
+ */
+
+.badge {
+  @include badge-style($badge-default-bg, $badge-default-text);
+  z-index: $z-index-badge;
+  display: inline-block;
+  padding: 3px 8px;
+  min-width: 10px;
+  border-radius: $badge-border-radius;
+  vertical-align: baseline;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: $badge-font-weight;
+  font-size: $badge-font-size;
+  line-height: $badge-line-height;
+
+  &:empty {
+    display: none;
+  }
+}
+
+//Be sure to override specificity of rule that 'badge color matches tab color by default'
+.tabs .tab-item .badge,
+.badge {
+  &.badge-light {
+    @include badge-style($badge-light-bg, $badge-light-text);
+  }
+  &.badge-stable {
+    @include badge-style($badge-stable-bg, $badge-stable-text);
+  }
+  &.badge-positive {
+    @include badge-style($badge-positive-bg, $badge-positive-text);
+  }
+  &.badge-calm {
+    @include badge-style($badge-calm-bg, $badge-calm-text);
+  }
+  &.badge-assertive {
+    @include badge-style($badge-assertive-bg, $badge-assertive-text);
+  }
+  &.badge-balanced {
+    @include badge-style($badge-balanced-bg, $badge-balanced-text);
+  }
+  &.badge-energized {
+    @include badge-style($badge-energized-bg, $badge-energized-text);
+  }
+  &.badge-royal {
+    @include badge-style($badge-royal-bg, $badge-royal-text);
+  }
+  &.badge-dark {
+    @include badge-style($badge-dark-bg, $badge-dark-text);
+  }
+}
+
+// Quick fix for labels/badges in buttons
+.button .badge {
+  position: relative;
+  top: -1px;
+}
+
+
+/**
+ * Slide Box
+ * --------------------------------------------------
+ */
+
+.slider {
+  position: relative;
+  visibility: hidden;
+  // Make sure items don't scroll over ever
+  overflow: hidden;
+}
+
+.slider-slides {
+  position: relative;
+  height: 100%;
+}
+
+.slider-slide {
+  position: relative;
+  display: block;
+  float: left;
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.slider-slide-image {
+  > img {
+    width: 100%;
+  }
+}
+
+.slider-pager {
+  position: absolute;
+  bottom: 20px;
+  z-index: $z-index-slider-pager;
+  width: 100%;
+  height: 15px;
+  text-align: center;
+
+  .slider-pager-page {
+    display: inline-block;
+    margin: 0px 3px;
+    width: 15px;
+    color: #000;
+    text-decoration: none;
+
+    opacity: 0.3;
+
+    &.active {
+      @include transition(opacity 0.4s ease-in);
+      opacity: 1;
+    }
+  }
+}
+
+/**
+ * Forms
+ * --------------------------------------------------
+ */
+
+// Make all forms have space below them
+form {
+  margin: 0 0 $line-height-base;
+}
+
+// Groups of fields with labels on top (legends)
+legend {
+  display: block;
+  margin-bottom: $line-height-base;
+  padding: 0;
+  width: 100%;
+  border: $input-border-width solid $input-border;
+  color: $dark;
+  font-size: $font-size-base * 1.5;
+  line-height: $line-height-base * 2;
+
+  small {
+    color: $stable;
+    font-size: $line-height-base * .75;
+  }
+}
+
+// Set font for forms
+label,
+input,
+button,
+select,
+textarea {
+  @include font-shorthand($font-size-base, normal, $line-height-base); // Set size, weight, line-height here
+}
+input,
+button,
+select,
+textarea {
+  font-family: $font-family-base; // And only set font-family here for those that need it (note the missing label element)
+}
+
+
+// Input List
+// -------------------------------
+
+.item-input {
+  @include display-flex();
+  @include align-items(center);
+  position: relative;
+  overflow: hidden;
+  padding: 6px 0 5px 16px;
+
+  input {
+    @include border-radius(0);
+    @include flex(1, 0, 220px);
+    @include appearance(none);
+    margin: 0;
+    padding-right: 24px;
+    background-color: transparent;
+  }
+
+  .button .icon {
+    @include flex(0, 0, 24px);
+    position: static;
+    display: inline-block;
+    height: auto;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .button-bar {
+    @include border-radius(0);
+    @include flex(1, 0, 220px);
+    @include appearance(none);
+  }
+
+  .icon {
+    min-width: 14px;
+  }
+}
+
+.item-input-inset {
+  @include display-flex();
+  @include align-items(center);
+  position: relative;
+  overflow: hidden;
+  padding: ($item-padding / 3) * 2;
+}
+
+.item-input-wrapper {
+  @include display-flex();
+  @include flex(1, 0);
+  @include align-items(center);
+  @include border-radius(4px);
+  padding-right: 8px;
+  padding-left: 8px;
+  background: #eee;
+}
+
+.item-input-inset .item-input-wrapper input {
+  padding-left: 4px;
+  height: 29px;
+  background: transparent;
+  line-height: 18px;
+}
+
+.item-input-wrapper ~ .button {
+  margin-left: ($item-padding / 3) * 2;
+}
+
+.input-label {
+  @include flex(1, 0, 100px);
+  display: table;
+  padding: 7px 10px 7px 0px;
+  max-width: 200px;
+  width: 35%;
+  color: $input-label-color;
+  font-size: 16px;
+}
+
+.placeholder-icon {
+  color: #aaa;
+  &:first-child {
+    padding-right: 6px;
+  }
+  &:last-child {
+    padding-left: 6px;
+  }
+}
+
+.item-stacked-label {
+  display: block;
+  background-color: transparent;
+  box-shadow: none;
+
+  .input-label, .icon {
+    display: inline-block;
+    padding: 4px 0 0 0px;
+    vertical-align: middle;
+  }
+}
+
+.item-stacked-label input,
+.item-stacked-label textarea {
+  @include border-radius(2px);
+  padding: 4px 8px 3px 0;
+  border: none;
+  background-color: $input-bg;
+}
+.item-stacked-label input {
+  overflow: hidden;
+  height: $line-height-computed + $font-size-base + 12px;
+}
+
+.item-floating-label {
+  display: block;
+  background-color: transparent;
+  box-shadow: none;
+
+  .input-label {
+    position: relative;
+    padding: 5px 0 0 0;
+    opacity: 0;
+    top: 10px;
+    @include transition(opacity .15s ease-in, top .2s linear);
+
+    &.has-input {
+      opacity: 1;
+      top: 0;
+      @include transition(opacity .15s ease-in, top .2s linear);
+    }
+  }
+}
+
+
+// Form Controls
+// -------------------------------
+
+// Shared size and type resets
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"] {
+  display: block;
+  padding-top: 2px;
+  padding-left: 0;
+  height: $line-height-computed + $font-size-base;
+  color: $input-color;
+  vertical-align: middle;
+  font-size: $font-size-base;
+  line-height: $font-size-base + 2;
+}
+
+.platform-ios,
+.platform-android {
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"] {
+    padding-top: 8px;
+  }
+}
+
+input,
+textarea {
+  width: 100%;
+}
+textarea {
+  padding-left: 0;
+  @include placeholder($input-color-placeholder, -3px);
+}
+
+// Reset height since textareas have rows
+textarea {
+  height: auto;
+}
+
+// Everything else
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"] {
+  border: 0;
+}
+
+// Position radios and checkboxes better
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 0;
+  line-height: normal;
+}
+
+// Reset width of input images, buttons, radios, checkboxes
+input[type="file"],
+input[type="image"],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto; // Override of generic input selector
+}
+
+// Set the height of file to match text inputs
+input[type="file"] {
+  line-height: $input-height-base;
+}
+
+// Text input classes to hide text caret during scroll
+.previous-input-focus,
+.cloned-text-input + input,
+.cloned-text-input + textarea {
+  position: absolute !important;
+  left: -9999px;
+  width: 200px;
+}
+
+
+// Placeholder
+// -------------------------------
+input,
+textarea {
+  @include placeholder();
+}
+
+
+// DISABLED STATE
+// -------------------------------
+
+// Disabled and read-only inputs
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly]:not(.cloned-text-input),
+textarea[readonly]:not(.cloned-text-input),
+select[readonly] {
+  background-color: $input-bg-disabled;
+  cursor: not-allowed;
+}
+// Explicitly reset the colors here
+input[type="radio"][disabled],
+input[type="checkbox"][disabled],
+input[type="radio"][readonly],
+input[type="checkbox"][readonly] {
+  background-color: transparent;
+}
+
+
+/**
+ * Checkbox
+ * --------------------------------------------------
+ */
+
+.checkbox {
+  // set the color defaults
+  @include checkbox-style($checkbox-off-border-default, $checkbox-on-bg-default);
+
+  position: relative;
+  display: inline-block;
+  padding: ($checkbox-height / 4) ($checkbox-width / 4);
+  cursor: pointer;
+}
+.checkbox-light  {
+  @include checkbox-style($checkbox-off-border-light, $checkbox-on-bg-light);
+}
+.checkbox-stable  {
+  @include checkbox-style($checkbox-off-border-stable, $checkbox-on-bg-stable);
+}
+.checkbox-positive  {
+  @include checkbox-style($checkbox-off-border-positive, $checkbox-on-bg-positive);
+}
+.checkbox-calm  {
+  @include checkbox-style($checkbox-off-border-calm, $checkbox-on-bg-calm);
+}
+.checkbox-assertive  {
+  @include checkbox-style($checkbox-off-border-assertive, $checkbox-on-bg-assertive);
+}
+.checkbox-balanced  {
+  @include checkbox-style($checkbox-off-border-balanced, $checkbox-on-bg-balanced);
+}
+.checkbox-energized{
+  @include checkbox-style($checkbox-off-border-energized, $checkbox-on-bg-energized);
+}
+.checkbox-royal  {
+  @include checkbox-style($checkbox-off-border-royal, $checkbox-on-bg-royal);
+}
+.checkbox-dark  {
+  @include checkbox-style($checkbox-off-border-dark, $checkbox-on-bg-dark);
+}
+
+.checkbox input:disabled:before,
+.checkbox input:disabled + .checkbox-icon:before {
+  border-color: $checkbox-off-border-light;
+}
+
+.checkbox input:disabled:checked:before,
+.checkbox input:disabled:checked + .checkbox-icon:before {
+  background: $checkbox-on-bg-light;
+}
+
+
+.checkbox.checkbox-input-hidden input {
+  display: none !important;
+}
+
+.checkbox input,
+.checkbox-icon {
+  position: relative;
+  width: $checkbox-width;
+  height: $checkbox-height;
+  display: block;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+
+  &:before {
+    // what the checkbox looks like when its not checked
+    display: table;
+    width: 100%;
+    height: 100%;
+    border-width: $checkbox-border-width;
+    border-style: solid;
+    border-radius: $checkbox-border-radius;
+    background: $checkbox-off-bg-color;
+    content: ' ';
+    transition: background-color 20ms ease-in-out;
+  }
+}
+
+.checkbox input:checked:before,
+input:checked + .checkbox-icon:before {
+  border-width: $checkbox-border-width + 1;
+}
+
+// the checkmark within the box
+.checkbox input:after,
+.checkbox-icon:after {
+  @include transition(opacity .05s ease-in-out);
+  @include rotate(-45deg);
+  position: absolute;
+  top: 30%;
+  left: 26%;
+  display: table;
+  width: ($checkbox-width / 2) + 1;
+  height: ($checkbox-width / 3) + 1;
+  border: $checkbox-check-width solid $checkbox-check-color;
+  border-top: 0;
+  border-right: 0;
+  content: ' ';
+  opacity: 0;
+}
+
+.grade-c .checkbox input:after,
+.grade-c .checkbox-icon:after {
+  @include rotate(0);
+  top: 3px;
+  left: 4px;
+  border: none;
+  color: $checkbox-check-color;
+  content: '\2713';
+  font-weight: bold;
+  font-size: 20px;
+}
+
+// what the checkmark looks like when its checked
+.checkbox input:checked:after,
+input:checked + .checkbox-icon:after {
+  opacity: 1;
+}
+
+// make sure item content have enough padding on left to fit the checkbox
+.item-checkbox {
+  padding-left: ($item-padding * 2) + $checkbox-width;
+
+  &.active {
+    box-shadow: none;
+  }
+}
+
+// position the checkbox to the left within an item
+.item-checkbox .checkbox {
+  position: absolute;
+  top: 50%;
+  right: $item-padding / 2;
+  left: $item-padding / 2;
+  z-index: $z-index-item-checkbox;
+  margin-top: (($checkbox-height + ($checkbox-height / 2)) / 2) * -1;
+}
+
+
+.item-checkbox.item-checkbox-right {
+  padding-right: ($item-padding * 2) + $checkbox-width;
+  padding-left: $item-padding;
+}
+
+.item-checkbox-right .checkbox input,
+.item-checkbox-right .checkbox-icon {
+  float: right;
+}
+
+/**
+ * Toggle
+ * --------------------------------------------------
+ */
+
+.item-toggle {
+  pointer-events: none;
+}
+
+.toggle {
+  // set the color defaults
+  @include toggle-style($toggle-on-default-border, $toggle-on-default-bg);
+
+  position: relative;
+  display: inline-block;
+  pointer-events: auto;
+  margin: -$toggle-hit-area-expansion;
+  padding: $toggle-hit-area-expansion;
+
+  &.dragging {
+    .handle {
+      background-color: $toggle-handle-dragging-bg-color !important;
+    }
+  }
+
+  &.toggle-light  {
+    @include toggle-style($toggle-on-light-border, $toggle-on-light-bg);
+  }
+  &.toggle-stable  {
+    @include toggle-style($toggle-on-stable-border, $toggle-on-stable-bg);
+  }
+  &.toggle-positive  {
+    @include toggle-style($toggle-on-positive-border, $toggle-on-positive-bg);
+  }
+  &.toggle-calm  {
+    @include toggle-style($toggle-on-calm-border, $toggle-on-calm-bg);
+  }
+  &.toggle-assertive  {
+    @include toggle-style($toggle-on-assertive-border, $toggle-on-assertive-bg);
+  }
+  &.toggle-balanced  {
+    @include toggle-style($toggle-on-balanced-border, $toggle-on-balanced-bg);
+  }
+  &.toggle-energized  {
+    @include toggle-style($toggle-on-energized-border, $toggle-on-energized-bg);
+  }
+  &.toggle-royal  {
+    @include toggle-style($toggle-on-royal-border, $toggle-on-royal-bg);
+  }
+  &.toggle-dark  {
+    @include toggle-style($toggle-on-dark-border, $toggle-on-dark-bg);
+  }
+}
+
+.toggle input {
+  // hide the actual input checkbox
+  display: none;
+}
+
+/* the track appearance when the toggle is "off" */
+.toggle .track {
+  @include transition-timing-function(ease-in-out);
+  @include transition-duration($toggle-transition-duration);
+  @include transition-property((background-color, border));
+
+  display: inline-block;
+  box-sizing: border-box;
+  width: $toggle-width;
+  height: $toggle-height;
+  border: solid $toggle-border-width $toggle-off-border-color;
+  border-radius: $toggle-border-radius;
+  background-color: $toggle-off-bg-color;
+  content: ' ';
+  cursor: pointer;
+  pointer-events: none;
+}
+
+/* Fix to avoid background color bleeding */
+/* (occured on (at least) Android 4.2, Asus MeMO Pad HD7 ME173X) */
+.platform-android4_2 .toggle .track {
+  -webkit-background-clip: padding-box;
+}
+
+/* the handle (circle) thats inside the toggle's track area */
+/* also the handle's appearance when it is "off" */
+.toggle .handle {
+  @include transition($toggle-transition-duration ease-in-out);
+  position: absolute;
+  display: block;
+  width: $toggle-handle-width;
+  height: $toggle-handle-height;
+  border-radius: $toggle-handle-radius;
+  background-color: $toggle-handle-off-bg-color;
+  top: $toggle-border-width + $toggle-hit-area-expansion;
+  left: $toggle-border-width + $toggle-hit-area-expansion;
+
+  &:before {
+    // used to create a larger (but hidden) hit area to slide the handle
+    position: absolute;
+    top: -4px;
+    left: ( ($toggle-handle-width / 2) * -1) - 8;
+    padding: ($toggle-handle-height / 2) + 5 ($toggle-handle-width + 7);
+    content: " ";
+  }
+}
+
+.toggle input:checked + .track .handle {
+  // the handle when the toggle is "on"
+  @include translate3d($toggle-width - $toggle-handle-width - ($toggle-border-width * 2), 0, 0);
+  background-color: $toggle-handle-on-bg-color;
+}
+
+.item-toggle.active {
+  box-shadow: none;
+}
+
+.item-toggle,
+.item-toggle.item-complex .item-content {
+  // make sure list item content have enough padding on right to fit the toggle
+  padding-right: ($item-padding * 3) + $toggle-width;
+}
+
+.item-toggle.item-complex {
+  padding-right: 0;
+}
+
+.item-toggle .toggle {
+  // position the toggle to the right within a list item
+  position: absolute;
+  top: $item-padding / 2;
+  right: $item-padding;
+  z-index: $z-index-item-toggle;
+}
+
+.toggle input:disabled + .track {
+  opacity: .6;
+}
+
+
+/**
+ * Radio Button Inputs
+ * --------------------------------------------------
+ */
+
+.item-radio {
+  padding: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.item-radio .item-content {
+  /* give some room to the right for the checkmark icon */
+  padding-right: $item-padding * 4;
+}
+
+.item-radio .radio-icon {
+  /* checkmark icon will be hidden by default */
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: $z-index-item-radio;
+  visibility: hidden;
+  padding: $item-padding - 2;
+  height: 100%;
+  font-size: 24px;
+}
+
+.item-radio input {
+  /* hide any radio button inputs elements (the ugly circles) */
+  position: absolute;
+  left: -9999px;
+
+  &:checked ~ .item-content {
+    /* style the item content when its checked */
+    background: #f7f7f7;
+  }
+
+  &:checked ~ .radio-icon {
+    /* show the checkmark icon when its checked */
+    visibility: visible;
+  }
+}
+
+// Hack for Android to correctly display the checked item
+// http://timpietrusky.com/advanced-checkbox-hack
+.platform-android.grade-b .item-radio,
+.platform-android.grade-c .item-radio {
+  -webkit-animation: androidCheckedbugfix infinite 1s;
+}
+@-webkit-keyframes androidCheckedbugfix {
+  from { padding: 0; }
+  to { padding: 0; }
+}
+
+
+/**
+ * Range
+ * --------------------------------------------------
+ */
+
+input[type="range"] {
+  display: inline-block;
+  overflow: hidden;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-right: 2px;
+  padding-left: 1px;
+  width: auto;
+  height: $range-slider-height + 15;
+  outline: none;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, $range-default-track-bg), color-stop(100%, $range-default-track-bg));
+  background: linear-gradient(to right, $range-default-track-bg 0%, $range-default-track-bg 100%);
+  background-position: center;
+  background-size: 99% $range-track-height;
+  background-repeat: no-repeat;
+  -webkit-appearance: none;
+
+  &::-webkit-slider-thumb {
+    position: relative;
+    width: $range-slider-width;
+    height: $range-slider-height;
+    border-radius: $range-slider-border-radius;
+    background-color: $toggle-handle-off-bg-color;
+    box-shadow: 0 0 2px rgba(0,0,0,.5), 1px 3px 5px rgba(0,0,0,0.25);
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+
+  &::-webkit-slider-thumb:before {
+    /* what creates the colorful line on the left side of the slider */
+    position: absolute;
+    top: ($range-slider-height / 2) - ($range-track-height / 2);
+    left: -2001px;
+    width: 2000px;
+    height: $range-track-height;
+    background: $dark;
+    content: ' ';
+  }
+
+  &::-webkit-slider-thumb:after {
+    /* create a larger (but hidden) hit area */
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    padding: 30px;
+    content: ' ';
+    //background: red;
+    //opacity: .5;
+  }
+
+}
+
+.range {
+  @include display-flex();
+  @include align-items(center);
+  padding: 2px 11px;
+
+  &.range-light {
+    input { @include range-style($range-light-track-bg); }
+  }
+  &.range-stable {
+    input { @include range-style($range-stable-track-bg); }
+  }
+  &.range-positive {
+    input { @include range-style($range-positive-track-bg); }
+  }
+  &.range-calm {
+    input { @include range-style($range-calm-track-bg); }
+  }
+  &.range-balanced {
+    input { @include range-style($range-balanced-track-bg); }
+  }
+  &.range-assertive {
+    input { @include range-style($range-assertive-track-bg); }
+  }
+  &.range-energized {
+    input { @include range-style($range-energized-track-bg); }
+  }
+  &.range-royal {
+    input { @include range-style($range-royal-track-bg); }
+  }
+  &.range-dark {
+    input { @include range-style($range-dark-track-bg); }
+  }
+}
+
+.range .icon {
+  @include flex(0);
+  display: block;
+  min-width: $range-icon-size;
+  text-align: center;
+  font-size: $range-icon-size;
+}
+
+.range input {
+  @include flex(1);
+  display: block;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.range-label {
+  @include flex(0, 0, auto);
+  display: block;
+  white-space: nowrap;
+}
+
+.range-label:first-child {
+  padding-left: 5px;
+}
+.range input + .range-label {
+  padding-right: 5px;
+  padding-left: 0;
+}
+
+
+
+/**
+ * Select
+ * --------------------------------------------------
+ */
+
+.item-select {
+  position: relative;
+
+  select {
+    @include appearance(none);
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: ($item-padding - 2) ($item-padding * 3) ($item-padding) $item-padding;
+    max-width: 65%;
+
+    border: none;
+    background: $item-default-bg;
+    color: #333;
+
+    // hack to hide default dropdown arrow in FF
+    text-indent: .01px;
+    text-overflow: '';
+
+    white-space: nowrap;
+    font-size: $font-size-base;
+
+    cursor: pointer;
+    direction: rtl; // right align the select text
+  }
+
+  select::-ms-expand {
+    // hide default dropdown arrow in IE
+    display: none;
+  }
+
+  option {
+    direction: ltr;
+  }
+
+  &:after {
+    position: absolute;
+    top: 50%;
+    right: $item-padding;
+    margin-top: -3px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid;
+    border-right: 5px solid rgba(0, 0, 0, 0);
+    border-left: 5px solid rgba(0, 0, 0, 0);
+    color: #999;
+    content: "";
+    pointer-events: none;
+  }
+  &.item-light {
+    select{
+      background:$item-light-bg;
+      color:$item-light-text;
+    }
+  }
+  &.item-stable {
+    select{
+      background:$item-stable-bg;
+      color:$item-stable-text;
+    }
+    &:after, .input-label{
+      color:darken($item-stable-border,30%);
+    }
+  }
+  &.item-positive {
+    select{
+      background:$item-positive-bg;
+      color:$item-positive-text;
+    }
+    &:after, .input-label{
+      color:$item-positive-text;
+    }
+  }
+  &.item-calm {
+    select{
+      background:$item-calm-bg;
+      color:$item-calm-text;
+    }
+    &:after, .input-label{
+      color:$item-calm-text;
+    }
+  }
+  &.item-assertive {
+    select{
+      background:$item-assertive-bg;
+      color:$item-assertive-text;
+    }
+    &:after, .input-label{
+      color:$item-assertive-text;
+    }
+  }
+  &.item-balanced {
+    select{
+      background:$item-balanced-bg;
+      color:$item-balanced-text;
+    }
+    &:after, .input-label{
+      color:$item-balanced-text;
+    }
+  }
+  &.item-energized  {
+    select{
+      background:$item-energized-bg;
+      color:$item-energized-text;
+    }
+    &:after, .input-label{
+      color:$item-energized-text;
+    }
+  }
+  &.item-royal {
+    select{
+      background:$item-royal-bg;
+      color:$item-royal-text;
+    }
+    &:after, .input-label{
+      color:$item-royal-text;
+    }
+  }
+  &.item-dark  {
+    select{
+      background:$item-dark-bg;
+      color:$item-dark-text;
+    }
+    &:after, .input-label{
+      color:$item-dark-text;
+    }
+  }
+}
+
+select {
+  &[multiple],
+  &[size] {
+    height: auto;
+  }
+}
+
+
+/**
+ * Progress
+ * --------------------------------------------------
+ */
+
+progress {
+  display: block;
+  margin: $progress-margin;
+  width: $progress-width;
+}
+
+
+/**
+ * Buttons
+ * --------------------------------------------------
+ */
+
+.button {
+  // set the color defaults
+  @include button-style($button-default-bg, $button-default-border, $button-default-active-bg, $button-default-active-border, $button-default-text);
+
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0 $button-padding;
+
+  min-width: ($button-padding * 3) + $button-font-size;
+  min-height: $button-height + 5px;
+
+  border-width: $button-border-width;
+  border-style: solid;
+  border-radius: $button-border-radius;
+
+  vertical-align: top;
+  text-align: center;
+
+  text-overflow: ellipsis;
+  font-size: $button-font-size;
+  line-height: $button-height - $button-border-width + 1px;
+
+  cursor: pointer;
+
+  &:after {
+    // used to create a larger button "hit" area
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    bottom: -6px;
+    left: -6px;
+    content: ' ';
+  }
+
+  .icon {
+    vertical-align: top;
+    pointer-events: none;
+  }
+
+  .icon:before,
+  &.icon:before,
+  &.icon-left:before,
+  &.icon-right:before {
+    display: inline-block;
+    padding: 0 0 $button-border-width 0;
+    vertical-align: inherit;
+    font-size: $button-icon-size;
+    line-height: $button-height - $button-border-width;
+    pointer-events: none;
+  }
+  &.icon-left:before {
+    float: left;
+    padding-right: .2em;
+    padding-left: 0;
+  }
+  &.icon-right:before {
+    float: right;
+    padding-right: 0;
+    padding-left: .2em;
+  }
+
+  &.button-block, &.button-full {
+    margin-top: $button-block-margin;
+    margin-bottom: $button-block-margin;
+  }
+
+  &.button-light {
+    @include button-style($button-light-bg, $button-light-border, $button-light-active-bg, $button-light-active-border, $button-light-text);
+    @include button-clear($button-light-border);
+    @include button-outline($button-light-border);
+  }
+
+  &.button-stable {
+    @include button-style($button-stable-bg, $button-stable-border, $button-stable-active-bg, $button-stable-active-border, $button-stable-text);
+    @include button-clear($button-stable-border);
+    @include button-outline($button-stable-border);
+  }
+
+  &.button-positive {
+    @include button-style($button-positive-bg, $button-positive-border, $button-positive-active-bg, $button-positive-active-border, $button-positive-text);
+    @include button-clear($button-positive-bg);
+    @include button-outline($button-positive-bg);
+  }
+
+  &.button-calm {
+    @include button-style($button-calm-bg, $button-calm-border, $button-calm-active-bg, $button-calm-active-border, $button-calm-text);
+    @include button-clear($button-calm-bg);
+    @include button-outline($button-calm-bg);
+  }
+
+  &.button-assertive {
+    @include button-style($button-assertive-bg, $button-assertive-border, $button-assertive-active-bg, $button-assertive-active-border, $button-assertive-text);
+    @include button-clear($button-assertive-bg);
+    @include button-outline($button-assertive-bg);
+  }
+
+  &.button-balanced {
+    @include button-style($button-balanced-bg, $button-balanced-border, $button-balanced-active-bg, $button-balanced-active-border, $button-balanced-text);
+    @include button-clear($button-balanced-bg);
+    @include button-outline($button-balanced-bg);
+  }
+
+  &.button-energized {
+    @include button-style($button-energized-bg, $button-energized-border, $button-energized-active-bg, $button-energized-active-border, $button-energized-text);
+    @include button-clear($button-energized-bg);
+    @include button-outline($button-energized-bg);
+  }
+
+  &.button-royal {
+    @include button-style($button-royal-bg, $button-royal-border, $button-royal-active-bg, $button-royal-active-border, $button-royal-text);
+    @include button-clear($button-royal-bg);
+    @include button-outline($button-royal-bg);
+  }
+
+  &.button-dark {
+    @include button-style($button-dark-bg, $button-dark-border, $button-dark-active-bg, $button-dark-active-border, $button-dark-text);
+    @include button-clear($button-dark-bg);
+    @include button-outline($button-dark-bg);
+  }
+}
+
+.button-small {
+  padding: 2px $button-small-padding 1px;
+  min-width: $button-small-height;
+  min-height: $button-small-height + 2;
+  font-size: $button-small-font-size;
+  line-height: $button-small-height - $button-border-width - 1;
+
+  .icon:before,
+  &.icon:before,
+  &.icon-left:before,
+  &.icon-right:before {
+    font-size: $button-small-icon-size;
+    line-height: $button-small-icon-size + 3;
+    margin-top: 3px;
+  }
+}
+
+.button-large {
+  padding: 0 $button-large-padding;
+  min-width: ($button-large-padding * 3) + $button-large-font-size;
+  min-height: $button-large-height + 5;
+  font-size: $button-large-font-size;
+  line-height: $button-large-height - $button-border-width;
+
+  .icon:before,
+  &.icon:before,
+  &.icon-left:before,
+  &.icon-right:before {
+    padding-bottom: ($button-border-width * 2);
+    font-size: $button-large-icon-size;
+    line-height: $button-large-height - ($button-border-width * 2) - 1;
+  }
+}
+
+.button-icon {
+  @include transition(opacity .1s);
+  padding: 0 6px;
+  min-width: initial;
+  border-color: transparent;
+  background: none;
+
+  &.button.active,
+  &.button.activated {
+    border-color: transparent;
+    background: none;
+    box-shadow: none;
+    opacity: 0.3;
+  }
+
+  .icon:before,
+  &.icon:before {
+    font-size: $button-large-icon-size;
+  }
+}
+
+.button-clear {
+  @include button-clear($button-default-border);
+  @include transition(opacity .1s);
+  padding: 0 $button-clear-padding;
+  max-height: $button-height;
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+
+  &.active,
+  &.activated {
+    opacity: 0.3;
+  }
+}
+
+.button-outline {
+  @include button-outline($button-default-border);
+  @include transition(opacity .1s);
+  background: none;
+  box-shadow: none;
+}
+
+.padding > .button.button-block:first-child {
+  margin-top: 0;
+}
+
+.button-block {
+  display: block;
+  clear: both;
+
+  &:after {
+    clear: both;
+  }
+}
+
+.button-full,
+.button-full > .button {
+  display: block;
+  margin-right: 0;
+  margin-left: 0;
+  border-right-width: 0;
+  border-left-width: 0;
+  border-radius: 0;
+}
+
+button.button-block,
+button.button-full,
+.button-full > button.button,
+input.button.button-block  {
+  width: 100%;
+}
+
+a.button {
+  text-decoration: none;
+
+  .icon:before,
+  &.icon:before,
+  &.icon-left:before,
+  &.icon-right:before {
+    margin-top: 2px;
+  }
+}
+
+.button.disabled,
+.button[disabled] {
+  opacity: .4;
+  cursor: default !important;
+  pointer-events: none;
+}
+
+
+/**
+ * Button Bar
+ * --------------------------------------------------
+ */
+
+.button-bar {
+  @include display-flex();
+  @include flex(1);
+  width: 100%;
+
+  &.button-bar-inline {
+    display: block;
+    width: auto;
+
+    @include clearfix();
+
+    > .button {
+      width: auto;
+      display: inline-block;
+      float: left;
+    }
+  }
+}
+
+.button-bar > .button {
+  @include flex(1);
+  display: block;
+  
+  overflow: hidden;
+
+  padding: 0 16px;
+
+  width: 0;
+
+  border-width: 1px 0px 1px 1px;
+  border-radius: 0;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:before,
+  .icon:before {
+    line-height: 44px;
+  }
+
+  &:first-child {
+    border-radius: 2px 0px 0px 2px;
+  }
+  &:last-child {
+    border-right-width: 1px;
+    border-radius: 0px 2px 2px 0px;
+  }
+}
+
+/**
+ * Animations
+ * --------------------------------------------------
+ * The animations in this file are "simple" - not too complex
+ * and pretty easy on performance. They can be overidden
+ * and enhanced easily.
+ */
+
+$transition-duration: 250ms;
+$slide-in-up-function: cubic-bezier(.1, .7, .1, 1);
+
+
+/**
+ * Keyframes
+ * --------------------------------------------------
+ */
+
+// Slide In From The Bottom To The Top
+// -------------------------------
+
+@-webkit-keyframes slideInUp {
+  0%   { -webkit-transform: translate3d(0, 100%, 0); }
+  100% { -webkit-transform: translate3d(0, 0, 0); }
+}
+@-moz-keyframes slideInUp {
+  0%   { -moz-transform: translate3d(0, 100%, 0); }
+  100% { -moz-transform: translate3d(0, 0, 0); }
+}
+@keyframes slideInUp {
+  0%   { transform: translate3d(0, 100%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+
+// Slide Out From The Top To Bottom
+// -------------------------------
+
+@-webkit-keyframes slideOutUp {
+  0%   { -webkit-transform: translate3d(0, 0, 0); }
+  100% { -webkit-transform: translate3d(0, 100%, 0); }
+}
+@-moz-keyframes slideOutUp {
+  0%   { -moz-transform: translate3d(0, 0, 0); }
+  100% { -moz-transform: translate3d(0, 100%, 0); }
+}
+@keyframes slideOutUp {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, 100%, 0); }
+}
+
+
+// Slide In From Left
+// -------------------------------
+
+@-webkit-keyframes slideInFromLeft {
+    from { -webkit-transform: translate3d(-100%, 0, 0); }
+    to { -webkit-transform: translate3d(0, 0, 0); }
+}
+@-moz-keyframes slideInFromLeft {
+    from { -moz-transform: translateX(-100%); }
+    to { -moz-transform: translateX(0); }
+}
+@keyframes slideInFromLeft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+
+// Slide In From Right
+// -------------------------------
+
+@-webkit-keyframes slideInFromRight {
+    from { -webkit-transform: translate3d(100%, 0, 0); }
+    to { -webkit-transform: translate3d(0, 0, 0); }
+}
+@-moz-keyframes slideInFromRight {
+    from { -moz-transform: translateX(100%); }
+    to { -moz-transform: translateX(0); }
+}
+@keyframes slideInFromRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+
+// Slide Out To Left
+// -------------------------------
+
+@-webkit-keyframes slideOutToLeft {
+  from { -webkit-transform: translate3d(0, 0, 0); }
+  to { -webkit-transform: translate3d(-100%, 0, 0); }
+}
+@-moz-keyframes slideOutToLeft {
+  from { -moz-transform: translateX(0); }
+  to { -moz-transform: translateX(-100%); }
+}
+@keyframes slideOutToLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+
+// Slide Out To Right
+// -------------------------------
+
+@-webkit-keyframes slideOutToRight {
+  from { -webkit-transform: translate3d(0, 0, 0); }
+  to { -webkit-transform: translate3d(100%, 0, 0); }
+}
+@-moz-keyframes slideOutToRight {
+  from { -moz-transform: translateX(0); }
+  to { -moz-transform: translateX(100%); }
+}
+@keyframes slideOutToRight {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+
+// Fade Out
+// -------------------------------
+
+@-webkit-keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@-moz-keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+
+// Fade In
+// -------------------------------
+
+@-webkit-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@-moz-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+// Fade Half In
+// -------------------------------
+
+@-webkit-keyframes fadeInHalf {
+  from { background-color: rgba(0,0,0,0); }
+  to { background-color: rgba(0,0,0,0.5); }
+}
+@-moz-keyframes fadeInHalf {
+  from { background-color: rgba(0,0,0,0); }
+  to { background-color: rgba(0,0,0,0.5); }
+}
+@keyframes fadeInHalf {
+  from { background-color: rgba(0,0,0,0); }
+  to { background-color: rgba(0,0,0,0.5); }
+}
+
+
+// Fade Half Out
+// -------------------------------
+
+@-webkit-keyframes fadeOutHalf {
+  from { background-color: rgba(0,0,0,0.5); }
+  to { background-color: rgba(0,0,0,0); }
+}
+@-moz-keyframes fadeOutHalf {
+  from { background-color: rgba(0,0,0,0.5); }
+  to { background-color: rgba(0,0,0,0); }
+}
+@keyframes fadeOutHalf {
+  from { background-color: rgba(0,0,0,0.5); }
+  to { background-color: rgba(0,0,0,0); }
+}
+
+// Scale Out
+// Scale from hero (1 in this case) to zero
+// -------------------------------
+
+@-webkit-keyframes scaleOut {
+  from { -webkit-transform: scale(1); opacity: 1; }
+  to { -webkit-transform: scale(0.8); opacity: 0; }
+}
+@-moz-keyframes scaleOut {
+  from { -moz-transform: scale(1); opacity: 1; }
+  to { -moz-transform: scale(0.8); opacity: 0; }
+}
+@keyframes scaleOut {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.8); opacity: 0; }
+}
+
+// Scale In
+// Scale from 0 to hero (1 in this case)
+// -------------------------------
+
+@-webkit-keyframes scaleIn {
+  from { -webkit-transform: scale(0); }
+  to { -webkit-transform: scale(1); }
+}
+@-moz-keyframes scaleIn {
+  from { -moz-transform: scale(0); }
+  to { -moz-transform: scale(1); }
+}
+@keyframes scaleIn {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+// Super Scale In
+// Scale from super (1.x) to duper (1 in this case)
+// -------------------------------
+
+@-webkit-keyframes superScaleIn {
+  from { -webkit-transform: scale(1.2); opacity: 0; }
+  to { -webkit-transform: scale(1); opacity: 1 }
+}
+@-moz-keyframes superScaleIn {
+  from { -moz-transform: scale(1.2); opacity: 0; }
+  to { -moz-transform: scale(1); opacity: 1; }
+}
+@keyframes superScaleIn {
+  from { transform: scale(1.2); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+// Spin
+// -------------------------------
+
+@-webkit-keyframes spin {
+  100% { -webkit-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+  100% { -moz-transform: rotate(360deg); }
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.no-animation {
+  > .ng-enter, &.ng-enter, > .ng-leave, &.ng-leave {
+    @include transition(none);
+  }
+}
+.noop-animation {
+  > .ng-enter, &.ng-enter, > .ng-leave, &.ng-leave {
+    @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) $transition-duration);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+
+// required for Android
+.ng-animate .pane {
+  position: absolute;
+}
+
+
+/**
+ * Slide Left-Right, and Right-Left, each with the reserve
+ * --------------------------------------------------
+ * NEW content slides IN from the RIGHT, OLD slides OUT to the LEFT
+ * Reverse: NEW content slides IN from the LEFT, OLD slides OUT to the RIGHT
+ */
+
+.slide-left-right,
+.slide-right-left.reverse {
+  > .ng-enter, &.ng-enter,
+  > .ng-leave, &.ng-leave {
+    @include transition(all ease-in-out $transition-duration);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  > .ng-enter, &.ng-enter {
+    /* NEW content placed far RIGHT BEFORE it slides IN from the RIGHT */
+    @include translate3d(100%, 0, 0);
+  }
+  > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+    /* NEW content ACTIVELY sliding IN from the RIGHT */
+    @include translate3d(0, 0, 0);
+  }
+  > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+    /* OLD content ACTIVELY sliding OUT to the LEFT */
+    @include translate3d(-100%, 0, 0);
+  }
+}
+
+.slide-left-right.reverse,
+.slide-right-left {
+  > .ng-enter, &.ng-enter, > .ng-leave, &.ng-leave {
+    @include transition(all ease-in-out $transition-duration);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  > .ng-enter, &.ng-enter {
+    /* NEW content placed far LEFT BEFORE it slides IN from the LEFT */
+    @include translate3d(-100%, 0, 0);
+  }
+  > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+    /* NEW content ACTIVELY sliding IN from the LEFT */
+    @include translate3d(0, 0, 0);
+  }
+  > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+    /* OLD content ACTIVELY sliding OUT to the RIGHT */
+    @include translate3d(100%, 0, 0);
+  }
+}
+
+
+/**
+ * iOS style slide left to right
+ * --------------------------------------------------
+ */
+$ios-timing-function: cubic-bezier(0.4, 0.6, 0.2, 1);
+$ios-transition-duration: 400ms;
+$ios-transition-box-shadow: 0px 0px 12px rgba(0,0,0,0.5);
+/*
+$ios-transition-box-shadow-start: -200px 0px 200px rgba(0,0,0,0), -5px 0px 5px rgba(0,0,0,0.01);
+$ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px rgba(0,0,0,0.18);
+*/
+
+.slide-ios,
+.slide-left-right-ios7,
+.slide-right-left-ios7.reverse {
+  > .ng-enter, &.ng-enter,
+  > .ng-leave, &.ng-leave {
+    @include transition(all $ios-timing-function $ios-transition-duration);
+    position: absolute;
+    top: 0;
+    //right: -1px;
+    bottom: 0;
+    //left: -1px;
+    width: auto;
+    &:not(.bar) {
+      border-right: none;
+      border-left: none;
+    }
+    border-right: none;
+    border-left: none;
+  }
+  > .ng-enter, &.ng-enter {
+    /* NEW content placed far RIGHT BEFORE it slides IN from the RIGHT */
+    @include translate3d(100%, 0, 0);
+  }
+  > .ng-leave, &.ng-leave {
+    z-index: 1;
+  }
+  > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+    /* NEW content ACTIVELY sliding IN from the RIGHT */
+    @include translate3d(0, 0, 0);
+  }
+  > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+    /* OLD content ACTIVELY sliding OUT to the LEFT */
+    @include translate3d(-20%, 0, 0);
+  }
+}
+.slide-ios.reverse,
+.slide-left-right-ios7.reverse,
+.slide-right-left-ios7 {
+  > .ng-enter, &.ng-enter, > .ng-leave, &.ng-leave {
+    @include transition(all $ios-timing-function $ios-transition-duration);
+    position: absolute;
+    top: 0;
+    //right: -1px;
+    bottom: 0;
+    //left: -1px;
+    width: auto;
+    border-right: none;
+    border-left: none;
+  }
+  > .ng-enter, &.ng-enter {
+    /* NEW content placed far LEFT BEFORE it slides IN from the LEFT */
+    @include translate3d(-20%, 0, 0);
+  }
+  > .ng-leave, &.ng-leave {
+    z-index: 2;
+  }
+  > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+    /* NEW content ACTIVELY sliding IN from the LEFT */
+    @include translate3d(0, 0, 0);
+  }
+  > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+    /* OLD content ACTIVELY sliding OUT to the RIGHT */
+    @include translate3d(100%, 0, 0);
+  }
+}
+
+/**
+ * iPad doesn't like box shadows
+ */
+.grade-a {
+  .slide-ios,
+  .slide-left-right-ios7, .slide-right-left-ios7.reverse {
+    > .ng-enter, &.ng-enter {
+      &:not(.platform-ipad) {
+        box-shadow: none;
+      }
+    }
+    > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+      &:not(.platform-ipad) {
+        box-shadow: $ios-transition-box-shadow;
+      }
+    }
+    > .ng-leave, &.ng-leave {
+      opacity: 1;
+    }
+    > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+      opacity: 0.9;
+    }
+  }
+  .slide-ios.reverse,
+  .slide-left-right-ios7.reverse, .slide-right-left-ios7 {
+    > .ng-enter, &.ng-enter {
+      opacity: 0.9;
+    }
+    > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+      opacity: 1;
+    }
+    > .ng-leave, &.ng-leave {
+      box-shadow: 0px 0px 12px rgba(0,0,0,0.5);
+      opacity: 1;
+    }
+    > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+      box-shadow: none;
+    }
+  }
+}
+
+$full-slide-timing-function: ease-in-out;
+$full-slide-transition-duration: 400ms;
+
+.slide-full {
+  > .ng-enter, &.ng-enter,
+  > .ng-leave, &.ng-leave {
+    @include transition(all $full-slide-timing-function $full-slide-transition-duration);
+    position: absolute;
+    top: 0;
+    right: -1px;
+    bottom: 0;
+    left: -1px;
+    width: auto;
+    &:not(.bar) {
+      border-right: none;
+      border-left: none;
+    }
+    border-right: none;
+    border-left: none;
+  }
+  > .ng-enter, &.ng-enter {
+    /* NEW content placed far RIGHT BEFORE it slides IN from the RIGHT */
+    @include translate3d(100%, 0, 0);
+  }
+  > .ng-leave, &.ng-leave {
+    z-index: 1;
+  }
+  > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+    /* NEW content ACTIVELY sliding IN from the RIGHT */
+    @include translate3d(0, 0, 0);
+  }
+  > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+    /* OLD content ACTIVELY sliding OUT to the LEFT */
+    @include translate3d(-100%, 0, 0);
+  }
+}
+.slide-full.reverse {
+  > .ng-enter, &.ng-enter, > .ng-leave, &.ng-leave {
+    @include transition(all $full-slide-timing-function $full-slide-transition-duration);
+    position: absolute;
+    top: 0;
+    right: -1px;
+    bottom: 0;
+    left: -1px;
+    width: auto;
+    border-right: none;
+    border-left: none;
+  }
+  > .ng-enter, &.ng-enter {
+    /* NEW content placed far LEFT BEFORE it slides IN from the LEFT */
+    @include translate3d(-100%, 0, 0);
+  }
+  > .ng-leave, &.ng-leave {
+    z-index: 2;
+  }
+  > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+    /* NEW content ACTIVELY sliding IN from the LEFT */
+    @include translate3d(0, 0, 0);
+  }
+  > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+    /* OLD content ACTIVELY sliding OUT to the RIGHT */
+    @include translate3d(100%, 0, 0);
+  }
+}
+
+
+.fade-explode.reverse {
+  > .ng-enter, &.ng-enter, > .ng-leave, &.ng-leave {
+    @include transition(all ease-out 300ms);
+    position: absolute;
+    top: 0;
+    right: -1px;
+    bottom: 0;
+    left: -1px;
+    width: auto;
+    &:not(.bar) {
+      border-right: 1px solid #ddd;
+      border-left: 1px solid #ddd;
+    }
+  }
+  > .ng-enter, &.ng-enter {
+    /* NEW content placed far LEFT BEFORE it slides IN from the LEFT */
+    @include scale(0.95);
+    opacity: 0;
+    z-index: 1;
+  }
+  > .ng-leave, &.ng-leave {
+    @include scale(1);
+    opacity: 1;
+    z-index: 2;
+  }
+  > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+    @include scale(1);
+    opacity: 1;
+  }
+  > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+    @include scale(1.6);
+    opacity: 0;
+  }
+}
+
+/**
+ * Android style "pop in" with fade and scale
+ */
+.fade-implode {
+  > .ng-enter, &.ng-enter,
+  > .ng-leave, &.ng-leave {
+    @include transition(all ease-out 200ms);
+    position: absolute;
+    top: 0;
+    right: -1px;
+    bottom: 0;
+    left: -1px;
+    width: auto;
+    &:not(.bar) {
+      border-right: 1px solid #ddd;
+      border-left: 1px solid #ddd;
+    }
+  }
+  > .ng-enter, &.ng-enter {
+    /* NEW content placed far RIGHT BEFORE it slides IN from the RIGHT */
+    @include scale(0.8);
+    opacity: 0;
+    z-index: 2;
+  }
+  > .ng-leave, &.ng-leave {
+    z-index: 1;
+  }
+  > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+    /* NEW content */
+    @include scale(1);
+    opacity: 1;
+  }
+  > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+  }
+}
+
+.fade-implode.reverse {
+  > .ng-enter, &.ng-enter, > .ng-leave, &.ng-leave {
+    @include transition(all ease-out 200ms);
+    position: absolute;
+    top: 0;
+    right: -1px;
+    bottom: 0;
+    left: -1px;
+    width: auto;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+  }
+  > .ng-enter, &.ng-enter {
+    @include scale(1);
+    opacity: 1;
+    z-index: 1;
+  }
+  > .ng-leave, &.ng-leave {
+    @include scale(1);
+    opacity: 1;
+    z-index: 2;
+  }
+  > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+    opacity: 1;
+  }
+  > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+    @include scale(0.8);
+    opacity: 0;
+  }
+}
+
+/**
+ * Simple slide-in animation
+ */
+.slide-in-left {
+  @include translate3d(0%,0,0);
+  &.ng-enter, > .ng-enter {
+    @include animation-name(slideInFromLeft);
+    @include animation-duration($transition-duration);
+    @include animation-timing-function(ease-in-out);
+    @include animation-fill-mode(both);
+  }
+  &.ng-leave, > .ng-leave {
+    @include animation-name(slideOutToLeft);
+    @include animation-duration($transition-duration);
+    @include animation-timing-function(ease-in-out);
+    @include animation-fill-mode(both);
+  }
+}
+
+
+.slide-in-left-add {
+  @include translate3d(100%,0,0);
+  @include animation-duration($transition-duration);
+  @include animation-timing-function(ease-in-out);
+  @include animation-fill-mode(both);
+}
+.slide-in-left-add-active {
+  @include animation-name(slideInFromLeft);
+}
+
+.slide-out-left {
+  @include translate3d(-100%,0,0);
+  &.ng-enter, > .ng-enter {
+    @include animation-name(slideOutToLeft);
+    @include animation-duration($transition-duration);
+    @include animation-timing-function(ease-in-out);
+    @include animation-fill-mode(both);
+  }
+  &.ng-leave, > .ng-leave {
+    @include animation-name(slideOutToLeft);
+    @include animation-duration($transition-duration);
+    @include animation-timing-function(ease-in-out);
+    @include animation-fill-mode(both);
+  }
+}
+
+.slide-out-left {
+}
+
+.slide-out-left-add {
+  @include translate3d(0,0,0);
+  @include animation-duration($transition-duration);
+  @include animation-timing-function(ease-in-out);
+  @include animation-fill-mode(both);
+}
+.slide-out-left-add-active {
+  @include animation-name(slideOutToLeft);
+}
+
+.slide-in-right {
+  @include translate3d(0%,0,0);
+  &.ng-enter, > .ng-enter {
+    @include animation-name(slideInFromRight);
+    @include animation-duration($transition-duration);
+    @include animation-timing-function(ease-in-out);
+    @include animation-fill-mode(both);
+  }
+  &.ng-leave, > .ng-leave {
+    @include animation-name(slideOutToRight);
+    @include animation-duration($transition-duration);
+    @include animation-timing-function(ease-in-out);
+    @include animation-fill-mode(both);
+  }
+}
+
+.slide-in-right-add {
+  @include translate3d(-100%,0,0);
+  @include animation-duration($transition-duration);
+  @include animation-timing-function(ease-in-out);
+  @include animation-fill-mode(both);
+}
+.slide-in-right-add-active {
+  @include animation-name(slideInFromRight);
+}
+
+.slide-out-right {
+  @include translate3d(100%,0,0);
+  &.ng-enter, > .ng-enter {
+    @include animation-name(slideOutToRight);
+    @include animation-duration($transition-duration);
+    @include animation-timing-function(ease-in-out);
+    @include animation-fill-mode(both);
+  }
+  &.ng-leave, > .ng-leave {
+    @include animation-name(slideOutToRight);
+    @include animation-duration($transition-duration);
+    @include animation-timing-function(ease-in-out);
+    @include animation-fill-mode(both);
+  }
+}
+
+.slide-out-right-add {
+  @include translate3d(0,0,0);
+  @include animation-duration($transition-duration);
+  @include animation-timing-function(ease-in-out);
+  @include animation-fill-mode(both);
+}
+.slide-out-right-add-active {
+  @include animation-name(slideOutToRight);
+}
+
+
+/**
+ * Slide up from the bottom, used for modals
+ * --------------------------------------------------
+ */
+
+.slide-in-up {
+  @include translate3d(0, 100%, 0);
+}
+.slide-in-up.ng-enter,
+.slide-in-up > .ng-enter {
+  @include transition(all $slide-in-up-function 400ms);
+}
+.slide-in-up.ng-enter-active,
+.slide-in-up > .ng-enter-active {
+  @include translate3d(0, 0, 0);
+}
+
+.slide-in-up.ng-leave,
+.slide-in-up > .ng-leave {
+  @include transition(all ease-in-out 250ms);
+}
+
+
+.fade-in {
+  @include animation(fadeOut 0.3s);
+  &.active {
+    @include animation(fadeIn 0.3s);
+  }
+}
+
+.fade-in-not-out {
+  &.ng-enter, .ng-enter {
+    @include animation(fadeIn 0.3s);
+    position: relative;
+  }
+  &.ng-leave, .ng-leave {
+    display: none;
+  }
+}
+
+
+
+/**
+ * Some component specific animations
+ */
+$nav-title-slide-ios-delay: $ios-transition-duration;
+.nav-title-slide-ios,
+.nav-title-slide-ios7 {
+  &:not(.no-animation) .button.back-button {
+    @include transition(all $nav-title-slide-ios-delay);
+    @include transition-timing-function($ios-timing-function);
+
+    @include translate3d(0%, 0, 0);
+    opacity: 1;
+    &.active, &.activated {
+      opacity: 0.5;
+    }
+    &.ng-hide {
+      opacity: 0;
+      @include translate3d(30%, 0, 0);
+    }
+    &.ng-hide-add,
+    &.ng-hide-remove {
+      display: block !important;
+    }
+    &.ng-hide-add {
+      position: absolute;
+    }
+  }
+  > .ng-enter, &.ng-enter,
+  > .ng-leave, &.ng-leave {
+    @include transition(all $nav-title-slide-ios-delay);
+    @include transition-timing-function($ios-timing-function);
+    opacity: 1;
+  }
+  > .ng-enter, &.ng-enter {
+    @include translate3d(30%, 0, 0);
+    opacity: 0;
+    &.title {
+      @include translate3d(100%, 0, 0);
+    }
+  }
+  > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+    @include translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+    @include translate3d(-30%, 0, 0);
+    opacity: 0;
+  }
+
+  &.reverse {
+    > .ng-enter, &.ng-enter,
+    > .ng-leave, &.ng-leave {
+      @include transition(all $nav-title-slide-ios-delay);
+      @include transition-timing-function($ios-timing-function);
+      opacity: 1;
+    }
+    > .ng-enter, &.ng-enter {
+      @include translate3d(-30%, 0, 0);
+      opacity: 0;
+    }
+    > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+      @include translate3d(0, 0, 0);
+      opacity: 1;
+    }
+    > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+      @include translate3d(100%, 0, 0);
+      opacity: 0;
+    }
+  }
+}
+
+
+/**
+ * Some component specific animations
+ */
+$nav-title-slide-full-duration: $full-slide-transition-duration;
+.nav-title-slide-full {
+  &:not(.no-animation) .button.back-button {
+    @include transition(all $nav-title-slide-full-duration);
+    @include transition-timing-function($full-slide-timing-function);
+
+    @include translate3d(0%, 0, 0);
+    opacity: 1;
+    &.active, &.activated {
+      opacity: 0.5;
+    }
+    &.ng-hide {
+      opacity: 0;
+      @include translate3d(30%, 0, 0);
+    }
+    &.ng-hide-add,
+    &.ng-hide-remove {
+      display: block !important;
+    }
+    &.ng-hide-add {
+      position: absolute;
+    }
+  }
+  > .ng-enter, &.ng-enter,
+  > .ng-leave, &.ng-leave {
+    @include transition(all $nav-title-slide-full-duration);
+    @include transition-timing-function($full-slide-timing-function);
+    opacity: 1;
+  }
+  > .ng-enter, &.ng-enter {
+    @include translate3d(30%, 0, 0);
+    opacity: 0;
+    &.title {
+      @include translate3d(100%, 0, 0);
+    }
+  }
+  > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+    @include translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+    @include translate3d(-30%, 0, 0);
+    opacity: 0;
+  }
+
+  &.reverse {
+    > .ng-enter, &.ng-enter,
+    > .ng-leave, &.ng-leave {
+      @include transition(all $nav-title-slide-full-duration);
+      @include transition-timing-function($full-slide-timing-function);
+      opacity: 1;
+    }
+    > .ng-enter, &.ng-enter {
+      @include translate3d(-30%, 0, 0);
+      opacity: 0;
+    }
+    > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+      @include translate3d(0, 0, 0);
+      opacity: 1;
+    }
+    > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+      @include translate3d(100%, 0, 0);
+      opacity: 0;
+    }
+  }
+}
+
+
+$nav-title-android-delay: 200ms;
+$nav-title-android-timing-function: linear;
+
+.nav-title-android {
+  &:not(.no-animation) .button.back-button {
+    @include transition(all $nav-title-android-delay);
+    @include transition-timing-function($nav-title-android-timing-function);
+    opacity: 1;
+    &.ng-hide {
+      opacity: 0;
+    }
+    &.ng-hide-add,
+    &.ng-hide-remove {
+      display: block !important;
+    }
+    &.ng-hide-add {
+      position: absolute;
+    }
+    &.ng-hide-remove {
+    }
+  }
+  > .ng-enter, &.ng-enter,
+  > .ng-leave, &.ng-leave {
+    @include transition(all $nav-title-android-delay);
+    @include transition-timing-function($nav-title-android-timing-function);
+  }
+  > .ng-enter, &.ng-enter {
+    opacity: 0;
+  }
+  > .ng-enter.ng-enter-active, &.ng-enter.ng-enter-active {
+    opacity: 1;
+  }
+  > .ng-leave.ng-leave-active, &.ng-leave.ng-leave-active {
+    opacity: 0;
+  }
+}
+
+/**
+ * Grid
+ * --------------------------------------------------
+ * Using flexbox for the grid, inspired by Philip Walton:
+ * http://philipwalton.github.io/solved-by-flexbox/demos/grids/
+ * By default each .col within a .row will evenly take up
+ * available width, and the height of each .col with take
+ * up the height of the tallest .col in the same .row.
+ */
+
+.row {
+  @include display-flex();
+  padding: ($grid-padding-width / 2);
+  width: 100%;
+}
+
+.row-wrap {
+  @include flex-wrap(wrap);
+}
+
+.row + .row {
+  margin-top: ($grid-padding-width / 2) * -1;
+  padding-top: 0;
+}
+
+.col {
+  @include flex(1);
+  display: block;
+  padding: ($grid-padding-width / 2);
+  width: 100%;
+}
+
+
+/* Vertically Align Columns */
+/* .row-* vertically aligns every .col in the .row */
+.row-top {
+  @include align-items(flex-start);
+}
+.row-bottom {
+  @include align-items(flex-end);
+}
+.row-center {
+  @include align-items(center);
+}
+.row-stretch {
+  @include align-items(stretch);
+}
+.row-baseline {
+  @include align-items(baseline);
+}
+
+/* .col-* vertically aligns an individual .col */
+.col-top {
+  @include align-self(flex-start);
+}
+.col-bottom {
+  @include align-self(flex-end);
+}
+.col-center {
+  @include align-self(center);
+}
+
+/* Column Offsets */
+.col-offset-10 {
+  margin-left: 10%;
+}
+.col-offset-20 {
+  margin-left: 20%;
+}
+.col-offset-25 {
+  margin-left: 25%;
+}
+.col-offset-33, .col-offset-34 {
+  margin-left: 33.3333%;
+}
+.col-offset-50 {
+  margin-left: 50%;
+}
+.col-offset-66, .col-offset-67 {
+  margin-left: 66.6666%;
+}
+.col-offset-75 {
+  margin-left: 75%;
+}
+.col-offset-80 {
+  margin-left: 80%;
+}
+.col-offset-90 {
+  margin-left: 90%;
+}
+
+
+/* Explicit Column Percent Sizes */
+/* By default each grid column will evenly distribute */
+/* across the grid. However, you can specify individual */
+/* columns to take up a certain size of the available area */
+.col-10 {
+  @include flex(0, 0, 10%);
+  max-width: 10%;
+}
+.col-20 {
+  @include flex(0, 0, 20%);
+  max-width: 20%;
+}
+.col-25 {
+  @include flex(0, 0, 25%);
+  max-width: 25%;
+}
+.col-33, .col-34 {
+  @include flex(0, 0, 33.3333%);
+  max-width: 33.3333%;
+}
+.col-50 {
+  @include flex(0, 0, 50%);
+  max-width: 50%;
+}
+.col-66, .col-67 {
+  @include flex(0, 0, 66.6666%);
+  max-width: 66.6666%;
+}
+.col-75 {
+  @include flex(0, 0, 75%);
+  max-width: 75%;
+}
+.col-80 {
+  @include flex(0, 0, 80%);
+  max-width: 80%;
+}
+.col-90 {
+  @include flex(0, 0, 90%);
+  max-width: 90%;
+}
+
+
+/* Responsive Grid Classes */
+/* Adding a class of responsive-X to a row */
+/* will trigger the flex-direction to */
+/* change to column and add some margin */
+/* to any columns in the row for clearity */
+
+@include responsive-grid-break('.responsive-sm', $grid-responsive-sm-break);
+@include responsive-grid-break('.responsive-md', $grid-responsive-md-break);
+@include responsive-grid-break('.responsive-lg', $grid-responsive-lg-break);
+
+
+/**
+ * Utility Classes
+ * --------------------------------------------------
+ */
+
+.hide {
+  display: none;
+}
+.opacity-hide {
+  opacity: 0;
+}
+.grade-b .opacity-hide,
+.grade-c .opacity-hide {
+  opacity: 1;
+  display: none;
+}
+.show {
+  display: block;
+}
+.opacity-show {
+  opacity: 1;
+}
+.invisible {
+  visibility: hidden;
+}
+
+.keyboard-open .hide-on-keyboard-open {
+  display: none;
+}
+
+.keyboard-open .tabs.hide-on-keyboard-open + .pane .has-tabs,
+.keyboard-open .bar-footer.hide-on-keyboard-open + .pane .has-footer {
+  bottom: 0;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.disable-pointer-events {
+  pointer-events: none;
+}
+
+.enable-pointer-events {
+  pointer-events: auto;
+}
+
+.disable-user-behavior {
+  // used to prevent the browser from doing its native behavior. this doesnt
+  // prevent the scrolling, but cancels the contextmenu, tap highlighting, etc
+
+  @include user-select(none);
+  @include touch-callout(none);
+  @include tap-highlight-transparent();
+
+  -webkit-user-drag: none;
+
+  -ms-touch-action: none;
+  -ms-content-zooming: none;
+}
+
+// Fill the screen to block clicks (a better pointer-events: none) for the body
+// to avoid full-page reflows and paints which can cause flickers
+.click-block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: $z-index-click-block;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.no-resize {
+  resize: none;
+}
+
+.block {
+  display: block;
+  clear: both;
+  &:after {
+    display: block;
+    visibility: hidden;
+    clear: both;
+    height: 0;
+    content: ".";
+  }
+}
+
+.full-image {
+  width: 100%;
+}
+
+.clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    // Fixes Opera/contenteditable bug:
+    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+/**
+ * Content Padding
+ * --------------------------------------------------
+ */
+
+.padding {
+  padding: $content-padding;
+}
+
+.padding-top,
+.padding-vertical {
+  padding-top: $content-padding;
+}
+
+.padding-right,
+.padding-horizontal {
+  padding-right: $content-padding;
+}
+
+.padding-bottom,
+.padding-vertical {
+  padding-bottom: $content-padding;
+}
+
+.padding-left,
+.padding-horizontal {
+  padding-left: $content-padding;
+}
+
+
+/**
+ * Rounded
+ * --------------------------------------------------
+ */
+
+.rounded {
+  border-radius: $border-radius-base;
+}
+
+
+/**
+ * Utility Colors
+ * --------------------------------------------------
+ * Utility colors are added to help set a naming convention. You'll
+ * notice we purposely do not use words like "red" or "blue", but
+ * instead have colors which represent an emotion or generic theme.
+ */
+
+.light, a.light {
+  color: $light;
+}
+.light-bg {
+  background-color: $light;
+}
+.light-border {
+  border-color: $button-light-border;
+}
+
+.stable, a.stable {
+  color: $stable;
+}
+.stable-bg {
+  background-color: $stable;
+}
+.stable-border {
+  border-color: $button-stable-border;
+}
+
+.positive, a.positive {
+  color: $positive;
+}
+.positive-bg {
+  background-color: $positive;
+}
+.positive-border {
+  border-color: $button-positive-border;
+}
+
+.calm, a.calm {
+  color: $calm;
+}
+.calm-bg {
+  background-color: $calm;
+}
+.calm-border {
+  border-color: $button-calm-border;
+}
+
+.assertive, a.assertive {
+  color: $assertive;
+}
+.assertive-bg {
+  background-color: $assertive;
+}
+.assertive-border {
+  border-color: $button-assertive-border;
+}
+
+.balanced, a.balanced {
+  color: $balanced;
+}
+.balanced-bg {
+  background-color: $balanced;
+}
+.balanced-border {
+  border-color: $button-balanced-border;
+}
+
+.energized, a.energized {
+  color: $energized;
+}
+.energized-bg {
+  background-color: $energized;
+}
+.energized-border {
+  border-color: $button-energized-border;
+}
+
+.royal, a.royal {
+  color: $royal;
+}
+.royal-bg {
+  background-color: $royal;
+}
+.royal-border {
+  border-color: $button-royal-border;
+}
+
+.dark, a.dark {
+  color: $dark;
+}
+.dark-bg {
+  background-color: $dark;
+}
+.dark-border {
+  border-color: $button-dark-border;
+}
+
+
+/**
+ * Platform
+ * --------------------------------------------------
+ * Platform specific tweaks
+ */
+
+
+/**
+ * Apply roboto font
+ */
+
+.roboto {
+  font-family: "Roboto", $font-family-base;
+
+  input {
+    font-family: "Roboto", $font-family-base;
+  }
+}
+/*
+.platform-android {
+
+
+  .bar {
+    padding: 0;
+
+    line-height: 40px;
+
+    .button {
+      line-height: 40px;
+    }
+
+    .button-icon:before {
+      font-size: 24px;
+    }
+  }
+
+  .back-button {
+    &.button-icon:before {
+      line-height: 40px;
+    }
+    margin-left: -3px;
+    padding: 0px 2px !important;
+    &.ion-android-arrow-back:before {
+      font-size: 12px;
+    }
+
+    &.back-button.active,
+    &.back-button.activated {
+      background-color: rgba(0,0,0,0.1);
+    }
+  }
+
+  .item-divider {
+    background: none;
+    border-top-width: 0;
+    border-bottom-width: 2px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .item {
+    border-left-width: 0;
+    border-right-width: 0;
+  }
+
+  .item-divider ~ .item:not(.item-divider) {
+    border-bottom-width: 0;
+  }
+
+  .back-button:not(.ng-hide) + .left-buttons + .title {
+    // Don't allow normal titles in this mode
+    display: none;
+  }
+
+  .bar .title {
+    text-align: left;
+    font-weight: normal;
+  }
+
+  font-family: 'Roboto';
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Roboto', $font-family-base;
+  }
+
+  .tab-item {
+    font-family: 'Roboto', $font-family-base;
+  }
+
+
+  input, button, select, textarea {
+    font-family: 'Roboto', $font-family-base;
+  }
+  */
+//}
+
+.platform-ios.platform-cordova {
+  // iOS7/8 has a status bar which sits on top of the header.
+  // Bump down everything to make room for it. However, if
+  // if its in Cordova, and set to fullscreen, then disregard the bump.
+  &:not(.fullscreen) {
+    .bar-header:not(.bar-subheader) {
+      height: $bar-height + $ios-statusbar-height;
+
+      &.item-input-inset .item-input-wrapper {
+        margin-top: 19px !important;
+      }
+
+      > * {
+        margin-top: $ios-statusbar-height;
+      }
+    }
+    .tabs-top > .tabs,
+    .tabs.tabs-top {
+      top: $bar-height + $ios-statusbar-height;
+    }
+
+    .has-header,
+    .bar-subheader {
+      top: $bar-height + $ios-statusbar-height;
+    }
+    .has-subheader {
+      top: (2 * $bar-height) + $ios-statusbar-height;
+    }
+    .has-tabs-top {
+      top: $bar-height + $tabs-height + $ios-statusbar-height;
+    }
+    .has-header.has-subheader.has-tabs-top {
+      top: 2 * $bar-height + $tabs-height + $ios-statusbar-height;
+    }
+  }
+  &.status-bar-hide {
+    // Cordova doesn't adjust the body height correctly, this makes up for it
+    margin-bottom: 20px;
+  }
+}
+
+@media (orientation:landscape) {
+  .platform-ios.platform-browser.platform-ipad {
+    position: fixed; // required for iPad 7 Safari
+  }
+}
+
+.platform-c:not(.enable-transitions) * {
+  // disable transitions on grade-c devices (Android 2)
+  -webkit-transition: none !important;
+  transition: none !important;
+}
+

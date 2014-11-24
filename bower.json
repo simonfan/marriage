@@ -1,0 +1,12 @@
+{
+  "name": "marriage",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.0.0-beta.13"
+  },
+  "dependencies": {
+    "sass.js": "~0.5.0",
+    "lodash": "~2.4.1",
+    "angular-local-storage": "~0.1.5"
+  }
+}

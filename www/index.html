@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- weinre -->
+    <script src="http://ec2-54-148-141-179.us-west-2.compute.amazonaws.com/target/target-script-min.js#anonymous"></script>
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- lodash -->
+    <script src="lib/lodash/dist/lodash.js"></script>
+
+    <!-- libsass -->
+    <script src="lib/sass.js/dist/sass.js"></script>
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- angular local storage -->
+    <script src="lib/angular-local-storage/dist/angular-local-storage.min.js"></script>
+
+
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+
+
+
+  </head>
+  <body ng-app="starter" ng-controller="AppCtrl" animation="slide-left-right-ios7">
+
+    <ion-side-menus>
+
+      <!-- Center content -->
+      <ion-side-menu-content>
+
+        <!-- 
+          The nav bar that will be updated as we navigate between views.
+        -->
+        <ion-nav-bar class="bar-stable nav-title-slide-ios7">
+          <ion-nav-back-button class="button-icon icon ion-ios7-arrow-back">
+            Back
+          </ion-nav-back-button>
+        </ion-nav-bar>
+
+
+        <!-- RIGHT NAV buttons -->
+        <ion-nav-buttons side="right">
+          <button menu-toggle="right" class="button button-icon icon ion-wand"></button>
+        </ion-nav-buttons>
+
+
+        <!-- TABS -->
+        <ion-tabs class="tabs-icon-only">
+          <!-- Pictures Tab -->
+          <ion-tab title="Pictures" icon="icon ion-images" ui-sref="tab.pictures">
+            <div ng-include="'templates/pictures.html'"></div>
+          </ion-tab>
+
+          <!-- Heart Tab -->
+          <ion-tab title="Heart" icon="icon ion-heart" ui-sref="tab.heart">
+            <div ng-include="'templates/heart.html'"></div>
+          </ion-tab>
+
+          <!-- Gifts Tab -->
+          <ion-tab title="Gifts" icon="icon ion-bag" ui-sref="tab.gifts">
+            <div ng-include="'templates/gifts.html'"></div>
+          </ion-tab>
+        </ion-tabs>
+
+
+      </ion-side-menu-content>
+
+
+
+      <!-- left menu -->
+      <ion-side-menu side="left">
+
+      </ion-side-menu>
+
+
+      <!-- right menu -->
+      <ion-side-menu side="right">
+
+
+        <div ng-include="'templates/editor.html'"></div>
+      </ion-side-menu>
+
+    </ion-side-menus>
+
+
+
+  </body>
+</html>
